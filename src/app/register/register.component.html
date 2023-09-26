@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Convergence&display=swap" rel="stylesheet">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="fondo bg-[#2C2C2C] w-[100%] h-[100vh] flex items-center">
+        <div
+            class="contenedor-login w-[58%] h-[68%] ml-[20%] bg-[#373737] rounded-2xl shadow-4xl shadow-black/32 dark:shadow-black/40 border-none flex">
+            <div>
+                <div class="logo flex items-center mt-[1vh] ">
+                    <img src="./../../assets/mono.png" class="object-contain w-28 ml-7 mt-[1vh]">
+                    <a class="btn btn-ghost normal-case text-4xl text-[#ffffff] textosexo mt-[3vh]">Nankuru-chat</a>
+                </div>
+                <div class="form-control w-full max-w-xs">
+                    <input type="text" placeholder="Enter your Titi username"
+                        class="input text-xl rounded-1xl focus:outline-none focus:ring-0 focus:text-[#ffffff] focus:border-transparent focus:bg-[#525252] w-[60vh] h-[5vh] bg-[#575757] placeholder-gray-400 ml-[5vh] shadow-2xl shadow-black dark:shadow-black" 
+                        [(ngModel)]="user"
+                    />
+                </div>
+                <div class="form-control w-full max-w-xs">
+                    <input type="text" placeholder="Enter your Titi email"
+                        class="input text-xl rounded-1xl mt-[3vh] focus:outline-none focus:ring-0 focus:text-[#ffffff] focus:border-transparent focus:bg-[#525252] w-[60vh] h-[5vh] bg-[#575757] placeholder-gray-400 ml-[5vh] shadow-2xl shadow-black dark:shadow-black" 
+                        [(ngModel)]="email"
+                    />
+                </div>
+                <div class="form-control w-full max-w-xs mt-[3vh]">
+                    <input type="password" placeholder="Enter your Titi password"
+                        class="input text-xl rounded-1xl focus:outline-none focus:ring-0 focus:text-[#ffffff] focus:border-transparent focus:bg-[#525252] w-[60vh] h-[5vh] bg-[#575757] placeholder-gray-400 ml-[5vh] shadow-2xl shadow-black dark:shadow-black" />
+                </div>
+                <div class="form-control w-full max-w-xs">
+                    <input type="text" placeholder="Enter your Titi description"
+                        class="input text-xl rounded-1xl mt-[3vh] focus:outline-none focus:ring-0 focus:text-[#ffffff] focus:border-transparent focus:bg-[#525252] w-[60vh] h-[20vh] bg-[#575757] placeholder-gray-400 ml-[5vh] shadow-2xl shadow-black dark:shadow-black" 
+                        [(ngModel)]="email"
+                    />
+                </div>
+            </div>
+            <div class="profile-contenedor relative bg-[#373737] h-[50vh] w-[45vh] mt-[3.5vh] ml-[5vh] rounded-2xl shadow-2xl shadow-black dark:shadow-black">
+                <div class="profile-picture ">
+                    <img src="./../../assets/mono_1-login.jpg" class="rounded-full h-[15vh] w-[15vh] ml-[15vh] mt-[5vh]">
+                </div>
+                <div class="name textosexo mt-[2vh] text-center">
+                    <h1> {{email}} </h1>
+                </div>
+            </div>
+            <div class="Join-nankuru absolute ml-[71vh] mt-[55.5vh]">
+                <button class="bg-[#49753E] h-[10vh] w-[45vh] rounded-2xl text-2xl textosexo shadow-xl shadow-black dark:shadow-black hover:bg-[#5D964F] text-[#ffffff]"> Join nankuru world </button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
