@@ -28,7 +28,7 @@
                 </div>
                 <div class="form-control w-full max-w-xs">
                     <input type="text" placeholder="Enter your Titi email"
-                        class="input text-xl rounded-1xl mt-[3vh] focus:outline-none focus:ring-0 focus:text-[#ffffff] focus:border-transparent focus:bg-[#525252] w-[60vh] h-[5vh] bg-[#575757] placeholder-gray-400 ml-[5vh] shadow-2xl shadow-black dark:shadow-black" 
+                        class="input text-normal text-xl rounded-1xl mt-[3vh] focus:outline-none focus:ring-0 focus:text-[#ffffff] focus:border-transparent focus:bg-[#525252] w-[60vh] h-[5vh] bg-[#575757] placeholder-gray-400 ml-[5vh] shadow-2xl shadow-black dark:shadow-black" 
                         [(ngModel)]="email"
                     />
                 </div>
@@ -39,16 +39,23 @@
                 <div class="form-control w-full max-w-xs">
                     <input type="text" placeholder="Enter your Titi description"
                         class="input text-xl rounded-1xl mt-[3vh] focus:outline-none focus:ring-0 focus:text-[#ffffff] focus:border-transparent focus:bg-[#525252] w-[60vh] h-[20vh] bg-[#575757] placeholder-gray-400 ml-[5vh] shadow-2xl shadow-black dark:shadow-black" 
-                        [(ngModel)]="email"
+                        [(ngModel)]="desc"
                     />
                 </div>
             </div>
-            <div class="profile-contenedor relative bg-[#373737] h-[50vh] w-[45vh] mt-[3.5vh] ml-[5vh] rounded-2xl shadow-2xl shadow-black dark:shadow-black">
+            <div class="profile-contenedor relative bg-[#373737] h-[50vh] w-[45vh] mt-[3.5vh] ml-[5vh] rounded-2xl shadow-2xl shadow-black dark:shadow-black ">
                 <div class="profile-picture ">
                     <img src="./../../assets/mono_1-login.jpg" class="rounded-full h-[15vh] w-[15vh] ml-[15vh] mt-[5vh]">
                 </div>
-                <div class="name textosexo mt-[2vh] text-center">
-                    <h1> {{email}} </h1>
+                <div class="user textosexo mt-[2vh] text-center absolute ml-[2vh]">
+                    <h1>Titi name: {{user}} </h1>
+                </div>
+                <div class="email textosexo mt-[25vh] text-center absolute ml-[2vh]">
+                    <h1> {{email}} </h1></div>
+                <div class="description-container textosexo rounded-2xl mt-[7vh] ml-[3vh] bg-[#434343] h-[18vh] w-[39vh] absolute">
+                    <div class="description ml-[1vh]">
+                        <h1> {{desc}} </h1>
+                    </div>
                 </div>
             </div>
             <div class="Join-nankuru absolute ml-[71vh] mt-[55.5vh]">
