@@ -4,6 +4,7 @@ import { ChatComponent } from './chat/chat.component';
 import { LandingComponent } from './landing/landing.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { SidePanelComponent } from './side-panel/side-panel.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,11 @@ const routes: Routes = [
     path: 'register',
     component: RegisterComponent,
     title: 'Register'
+  },
+  {
+    path: 'test',
+    component: SidePanelComponent,
+    title: 'test'
   },
 ];
 

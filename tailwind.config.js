@@ -3,6 +3,7 @@ module.exports = {
   purge: {
     content: [
       './src/**/*.{html,ts}',
+      './node_modules/tw-elements/dist/js/**/*.js'
     ]
   },
   darkMode: 'class', // or 'media' or 'class'
@@ -22,7 +23,7 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [require('@tailwindcss/forms'),require('@tailwindcss/typography'),require("daisyui")],
+  plugins: [require('@tailwindcss/forms'),require('@tailwindcss/typography'),require("daisyui"),require("tw-elements/dist/plugin.cjs")],
 };
 
 
