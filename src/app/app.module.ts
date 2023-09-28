@@ -8,6 +8,9 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { ChatComponent } from './chat/chat.component';
 import { FormsModule } from '@angular/forms';
+import { MessageComponent } from './chat/message/message.component';
+import { ServerComponent } from './chat/server/server.component';
+import { ChannelComponent } from './chat/server/channel/channel.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +18,10 @@ import { FormsModule } from '@angular/forms';
     LandingComponent,
     RegisterComponent,
     LoginComponent,
-    ChatComponent
+    ChatComponent,
+    MessageComponent,
+    ServerComponent,
+    ChannelComponent
   ],
   imports: [
     BrowserModule,

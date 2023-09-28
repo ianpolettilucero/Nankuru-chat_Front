@@ -7,7 +7,7 @@ import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
   {
-    path: 'home',
+    path: 'chat',
     component: ChatComponent,
     title: 'Chat'
   },
