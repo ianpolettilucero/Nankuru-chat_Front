@@ -63,4 +63,5 @@ export class ChatService {
   {
     return localStorage.getItem(environment.localstorage_token_key) || 'invalid-token';
   }
+
 }
