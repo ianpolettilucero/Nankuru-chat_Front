@@ -34,7 +34,9 @@
                 </div>
                 <div class="form-control w-full max-w-xs mt-[3vh]">
                     <input type="password" placeholder="Enter your Titi password"
-                        class="input text-xl rounded-1xl focus:outline-none focus:ring-0 focus:text-[#ffffff] focus:border-transparent focus:bg-[#525252] w-[60vh] h-[5vh] bg-[#575757] placeholder-gray-400 ml-[5vh] shadow-2xl shadow-black dark:shadow-black" />
+                        class="input text-xl rounded-1xl focus:outline-none focus:ring-0 focus:text-[#ffffff] focus:border-transparent focus:bg-[#525252] w-[60vh] h-[5vh] bg-[#575757] placeholder-gray-400 ml-[5vh] shadow-2xl shadow-black dark:shadow-black" 
+                        [(ngModel)]="password"
+                    />
                 </div>
                 <div class="form-control w-full max-w-xs">
                     <div class="nbirgger ">
@@ -60,7 +62,10 @@
                 </div>
             </div>
             <div class="Join-nankuru absolute ml-[71vh] mt-[55.5vh]">
-                <button class="bg-[#49753E] h-[10vh] w-[45vh] rounded-2xl text-2xl textosexo shadow-xl shadow-black dark:shadow-black hover:bg-[#5D964F] text-[#ffffff]"> Join nankuru world </button>
+                <button 
+                    class="bg-[#49753E] h-[10vh] w-[45vh] rounded-2xl text-2xl textosexo shadow-xl shadow-black dark:shadow-black hover:bg-[#5D964F] text-[#ffffff]"
+                    (click)="submit()"
+                > Join nankuru world </button>
             </div>
         </div>
     </div>
