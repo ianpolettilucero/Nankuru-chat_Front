@@ -13,4 +13,8 @@ export class RegisterComponent {
   email:string = '';
   @Input()
   desc:string = '';
+  @Input()
+  password!:string;
+  @Input()
+  pfp!:string;
 }

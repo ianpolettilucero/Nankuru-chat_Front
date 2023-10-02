@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { IMessage } from './message.type';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-message',
@@ -6,5 +8,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./message.component.css']
 })
 export class MessageComponent {
+  @Input()
+  content!: string;
+  @Input()
+  content_type!:string;
+  @Input()
+  username!: string;
+  @Input()
+  pfp!: string;
+  //constructor(private sanitizer: DomSanitizer) { 
 
+  // }
 }
+

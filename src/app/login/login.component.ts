@@ -7,5 +7,8 @@ import { Component, Input } from '@angular/core';
 })
 export class LoginComponent {
   @Input()
-  email:string = '';
+  email!:string;
+
+  @Input()
+  password!:string;
 }
