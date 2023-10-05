@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Host, HostListener, Input, OnInit } from '@angular/core';
 import { IMessage } from './message/message.type';
+import { delay } from 'rxjs';
 
 @Component({
   selector: 'app-chat',
@@ -8,6 +9,7 @@ import { IMessage } from './message/message.type';
 })
 export class ChatComponent {
   serverName: string = 'Aldea titi - Distrito bubu';
+  ws: WebSocket;
   messages: IMessage[] = [
     {
       content: "hola sexo?",
@@ -34,4 +36,72 @@ export class ChatComponent {
     }
   ];
 
+  @Input() 
+  user_input!: string;
+
+  constructor() {
+    this.ws = new WebSocket('wss://172.16.255.227:4356')
+  }
+
+  @HostListener('document:keypress', ['$event'])
+  onKeyPress(event: KeyboardEvent) {
+    if (this.user_input != ''){
+        if (event.key === 'Enter') { 
+          this.submit();
+          this.user_input = '';
+      }
+    }
+  }
+
+  submit()
+  {
+    this.submitM4litt();
+    return;
+    const message:IMessage = {
+      content: this.user_input,
+      content_type:'text',
+      username: 'user',
+      pfp: ':3'
+    }
+
+    this.messages.push(message);
+  }
+
+  submitM4litt()
+  {
+    const message:IMessage = {
+      content: this.user_input,
+      content_type:'text',
+      username: 'user',
+      pfp: ':3'
+    }
+
+    this.sendSignal(message);
+    this.addMessage(message);
+  }
+
+  // PORT EVENTS LISTENER
+  @HostListener('message', ['$event'])
+  onMessage(event: MessageEvent) {
+    const data = JSON.parse(event.data);
+
+    switch(data.type) {
+      case 'message':
+        this.addMessage(data.content);
+        break;
+    }
+  }
+
+  private addMessage(msg:any){
+    this.messages.push(msg);
+  }
+
+  private sendSignal(msg:any) {
+    this.ws.send(JSON.stringify(msg));
+  }
+
 }
+function preventDefault() {
+  throw new Error('Function not implemented.');
+}
+

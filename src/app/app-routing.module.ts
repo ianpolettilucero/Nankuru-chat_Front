@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { SidePanelComponent } from './side-panel/side-panel.component';
 import { MessageComponent } from './chat/message/message.component';
+import { ServerComponent } from './chat/server/server.component';
 
 const routes: Routes = [
   {
@@ -30,7 +31,7 @@ const routes: Routes = [
   },
   {
     path: 'test',
-    component: MessageComponent,
+    component: ServerComponent,
     title: 'test'
   },
 ];
