@@ -26,7 +26,12 @@
 
       </div>
       <div class="chatInputContainer bg-[#575757] h-[10%] w-[70%] ml-[2.5%] mt-[79vh] rounded-full absolute">
-        <textarea type="text" placeholder="Titis want to listen you..." class="chatInput textosexo bg-[#575757] border-none text-2xl mt-[1vh] ml-[1vh] absolute rounded-full w-[114.5vh] h-[7vh] focus:border-none focus:ring-0 break-words"></textarea>
+        <textarea 
+          type="text" 
+          placeholder="Titis want to listen you..." 
+          class="chatInput textosexo bg-[#575757] border-none text-2xl mt-[1vh] ml-[1vh] absolute rounded-full w-[114.5vh] h-[7vh] focus:border-none focus:ring-0 break-words"
+          [(ngModel)]="input"
+        ></textarea>
       </div>
       <div class="bg-[#575757] h-[9vh] w-[9vh] ml-[124vh] mt-[79vh] rounded-full absolute">
 

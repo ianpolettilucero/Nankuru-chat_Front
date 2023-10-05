@@ -12,7 +12,7 @@ export class ChatService {
   getServersByUser(id_user:number) 
   {
     return this.http.get(
-      `${environment.api_url}/user/${id_user}/servers}`,
+      `${environment.api_url}/user/${id_user}/servers`,
       { headers: { 'Authorization': this.getToken() } }
     );
   }
@@ -43,7 +43,7 @@ export class ChatService {
   addMessage(id_server:number, id_channel:number, id_sender:number, content:string, content_type:string)
   {
     return this.http.post(
-      `${environment.api_url}/server/${id_server}/channel/${id_channel}/message`,
+      `${environment.api_url}/server/${id_server}/channels/${id_channel}/messages`,
       { 
         id_sender: id_sender,
         content: content,

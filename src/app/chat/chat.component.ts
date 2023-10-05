@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { ChatService } from './chat.service';
 import { environment } from 'src/environments';
 
@@ -14,9 +14,9 @@ export class ChatComponent implements OnInit {
 
   serverName: string = 'Aldea titi - Distrito bubu';
 
-  // for easier API use
-  cur_channel_id!:number;
-  cur_server_id!:number;
+  // [TEMPORAL] USAR LOCALSTORAGE DESPUES
+  cur_channel_id:number = 12;
+  cur_server_id:number = 2;
 
   constructor(private chatService:ChatService) { }
 
@@ -39,6 +39,16 @@ export class ChatComponent implements OnInit {
     })
   }
 
+  @HostListener('window:keydown', ['$event'])
+  onEnterPress(event:KeyboardEvent)
+  {
+    if (event.key === 'Enter') 
+    {
+      this.addMessage();
+      this.input = '';
+    }
+  }
+
   addMessage()
   {
     const userId = localStorage.getItem(environment.localStorage_user_id);
@@ -52,6 +62,7 @@ export class ChatComponent implements OnInit {
       this.input,                       // content
       this.assumeContentType(this.input)// content type
     )
+    .subscribe(data => {});
   }
 
   createChannel() 
