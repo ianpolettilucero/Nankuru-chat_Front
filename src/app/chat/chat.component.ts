@@ -48,7 +48,7 @@ export class ChatComponent {
       picture: 'unspecified'
     },
     {
-      name: 'tetas',
+      name: 'poli-serveur',
       picture: 'unspecified'
     }
   ]
