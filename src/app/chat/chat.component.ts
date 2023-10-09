@@ -17,11 +17,12 @@ export class ChatComponent implements OnInit {
 
   messages: IMessage[] = [];  
   servers: IServer[] = [];
+  user!: IUser;
     
   // [TEMPORAL] USAR LOCALSTORAGE DESPUES
   cur_channel_id:number = 12;
   cur_server_id:number = 2;
-  serverName: string = 'Aldea titi - Distrito bubu';
+  serverName:string = 'choose a server and channel :p';
 
   constructor(private chatService:ChatService) {}
 
@@ -35,6 +36,20 @@ export class ChatComponent implements OnInit {
     this.servers = await firstValueFrom(
       this.chatService.getServersByUser(parseInt(userId))
     ) as IServer[];
+    
+    // load user data
+    this.user = await firstValueFrom(this.chatService.getUser(parseInt(userId))) as IUser;
+    
+    // if no server/channel is stored in localdata dont fetch anything
+    if (this.cur_channel_id == 0 || this.cur_server_id == 0) return; 
+
+    this.messages = await firstValueFrom(
+      this.chatService.getMessages(
+        this.cur_server_id, 
+        this.cur_channel_id
+      )
+    ) as IMessage[];
+    this.messages.reverse();
   }
 
   addMessage()
@@ -50,19 +65,42 @@ export class ChatComponent implements OnInit {
       this.user_input,                        // content
       this.assumeContentType(this.user_input) // content type
     )
-    .subscribe(data => {
+    .subscribe(() => {
       //magia de malitto
       this.messages.push(
         {
           content:      this.user_input,
           content_type: this.assumeContentType(this.user_input),
-          username:     "juanito juan",
-          pfp:          ""
+          username:     this.user.username,
+          pfp:          this.user.pfp
         }
       );
       this.clearInput();
     });
     
+  }
+
+  changeChannel(id_channel:number)
+  {
+    this.cur_channel_id = id_channel; // update current channel
+    this.messages = [];               // clear other servers messages
+
+    firstValueFrom(
+      this.chatService.getMessages(
+        this.cur_server_id, 
+        this.cur_channel_id
+      )
+    )
+    // load channels messages
+    .then(messages => this.messages = messages as IMessage[])
+    .catch(err => console.log(err));
+  }
+
+  changeServer(id_server:number)
+  {
+    this.cur_server_id = id_server;   // change current server
+    this.cur_channel_id = 0;          // force user to select channel
+    this.messages = [];               // clear messages
   }
 
   @HostListener('window:keydown', ['$event'])
@@ -88,3 +126,9 @@ export class ChatComponent implements OnInit {
   }
 }
 
+interface IUser 
+{
+  id: number;
+  username: string;
+  pfp: string;
+}
