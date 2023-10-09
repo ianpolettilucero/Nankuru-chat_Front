@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./channel.component.css']
 })
 export class ChannelComponent {
-
+  textChannelName: string = 'Distrito bubu';
+  voiceChannelName: string = 'Bubus singing';
 }

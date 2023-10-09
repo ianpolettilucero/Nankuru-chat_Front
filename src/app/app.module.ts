@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { MessageComponent } from './chat/message/message.component';
 import { ServerComponent } from './chat/server/server.component';
 import { ChannelComponent } from './chat/server/channel/channel.component';
+import { SidePanelComponent } from './side-panel/side-panel.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ChannelComponent } from './chat/server/channel/channel.component';
     ChatComponent,
     MessageComponent,
     ServerComponent,
-    ChannelComponent
+    ChannelComponent,
+    SidePanelComponent
   ],
   imports: [
     BrowserModule,
