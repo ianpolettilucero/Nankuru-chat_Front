@@ -1,6 +1,8 @@
 import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { ChatService } from './chat.service';
 import { environment } from 'src/environments';
+import { firstValueFrom } from 'rxjs';
+import { IServer } from '../types/server.type';
 
 @Component({
   selector: 'app-chat',
@@ -12,6 +14,8 @@ export class ChatComponent implements OnInit {
   @Input()
   input!:string;
 
+  servers!: IServer[];
+
   serverName: string = 'Aldea titi - Distrito bubu';
 
   // [TEMPORAL] USAR LOCALSTORAGE DESPUES
@@ -20,23 +24,16 @@ export class ChatComponent implements OnInit {
 
   constructor(private chatService:ChatService) { }
 
-  private assumeContentType(content:string):string
-  {
-    console.log('assumeContentType(): -> TODO');
-    return 'text'
-  }
-
-  ngOnInit()
+  async ngOnInit()
   {
     const userId = localStorage.getItem(environment.localStorage_user_id);
 
     if (!userId) return;
 
-    this.chatService.getServersByUser(parseInt(userId))
-    .subscribe(data => {
-      console.log(data);
-      // load messages to local var
-    })
+    // get all servers where user is member
+    this.servers = await firstValueFrom(
+      this.chatService.getServersByUser(parseInt(userId))
+    ) as IServer[];
   }
 
   @HostListener('window:keydown', ['$event'])
@@ -44,8 +41,8 @@ export class ChatComponent implements OnInit {
   {
     if (event.key === 'Enter') 
     {
-      this.addMessage();
-      this.input = '';
+      this.addMessage();  // add message
+      this.input = '';    // clear input
     }
   }
 
@@ -74,4 +71,11 @@ export class ChatComponent implements OnInit {
   {
     console.log('No parecia de 10');
   }
+
+  private assumeContentType(content:string):string
+  {
+    console.log('assumeContentType(): -> TODO');
+    return 'text'
+  }
+
 }

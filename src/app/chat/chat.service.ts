@@ -40,6 +40,12 @@ export class ChatService {
     );
   }
 
+  /* 
+  test user: 
+    test_mail@gmail.com 
+    1234 
+  */
+
   addMessage(id_server:number, id_channel:number, id_sender:number, content:string, content_type:string)
   {
     return this.http.post(
