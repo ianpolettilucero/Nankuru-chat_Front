@@ -1,4 +1,7 @@
-import { Component, Host, HostListener, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { ChatService } from './chat.service';
+import { environment } from 'src/environments';
+import { firstValueFrom } from 'rxjs';
 import { IMessage } from './message/message.type';
 import { delay } from 'rxjs';
 import { IServer } from './server/server.type';
@@ -8,9 +11,11 @@ import { IServer } from './server/server.type';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css']
 })
-export class ChatComponent {
-  serverName: string = 'Aldea titi - Distrito bubu';
-  ws: WebSocket;
+export class ChatComponent implements OnInit {
+
+  @Input()
+  user_input!:string;
+
   messages: IMessage[] = [
     {
       content: "hola?",
@@ -53,72 +58,71 @@ export class ChatComponent {
     }
   ]
 
-  @Input() 
-  user_input!: string;
+  serverName: string = 'Aldea titi - Distrito bubu';
+  ws: WebSocket;
 
-  constructor() {
-    this.ws = new WebSocket('wss://172.16.255.227:4356')
-  }
+  // [TEMPORAL] USAR LOCALSTORAGE DESPUES
+  cur_channel_id:number = 12;
+  cur_server_id:number = 2;
 
-  @HostListener('document:keypress', ['$event'])
-  onKeyPress(event: KeyboardEvent) {
-    if (this.user_input != ''){
-        if (event.key === 'Enter') { 
-          this.submit();
-          this.user_input = '';
-      }
-    }
-  }
-
-  submit()
+  constructor(private chatService:ChatService) 
   {
-    this.submitM4litt();
-    return;
-    const message:IMessage = {
-      content: this.user_input,
-      content_type:'text',
-      username: 'user',
-      pfp: ':3'
-    }
-
-    this.messages.push(message);
+      this.ws = new WebSocket('wss://172.16.255.227:4356')
   }
 
-  submitM4litt()
+  async ngOnInit()
   {
-    const message:IMessage = {
-      content: this.user_input,
-      content_type:'text',
-      username: 'user',
-      pfp: ':3'
-    }
+    const userId = localStorage.getItem(environment.localStorage_user_id);
 
-    this.sendSignal(message);
-    this.addMessage(message);
+    if (!userId) return;
+
+    // get all servers where user is member
+    this.servers = await firstValueFrom(
+      this.chatService.getServersByUser(parseInt(userId))
+    ) as IServer[];
   }
 
-  // PORT EVENTS LISTENER
-  @HostListener('message', ['$event'])
-  onMessage(event: MessageEvent) {
-    const data = JSON.parse(event.data);
-
-    switch(data.type) {
-      case 'message':
-        this.addMessage(data.content);
-        break;
+  @HostListener('window:keydown', ['$event'])
+  onEnterPress(event:KeyboardEvent)
+  {
+    if (event.key === 'Enter') 
+    {
+      this.addMessage();  // add message
+      this.input = '';    // clear input
     }
   }
 
-  private addMessage(msg:any){
-    this.messages.push(msg);
+  addMessage()
+  {
+    const userId = localStorage.getItem(environment.localStorage_user_id);
+
+    if (!userId) return;
+
+    this.chatService.addMessage(
+      this.cur_server_id,               // current server
+      this.cur_channel_id,              // current channel
+      parseInt(userId),                 // user that sent message (string to number)
+      this.input,                       // content
+      this.assumeContentType(this.input)// content type
+    )
+    .subscribe(data => {});
   }
 
-  private sendSignal(msg:any) {
-    this.ws.send(JSON.stringify(msg));
+  createChannel() 
+  {
+
   }
 
-}
-function preventDefault() {
-  throw new Error('Function not implemented.');
-}
+  grooming()
+  {
+    console.log('No parecia de 10');
+  }
+
+  private assumeContentType(content:string):string
+  {
+    console.log('assumeContentType(): -> TODO');
+    return 'text'
+  }
+
+}}
 
