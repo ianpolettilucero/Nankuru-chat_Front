@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { IChannel } from './channel/channel.type';
 
 @Component({
   selector: 'app-server',
@@ -10,4 +11,6 @@ export class ServerComponent {
   serverName!: string;
   @Input()
   pfp!: string;
+  @Input()
+  channels!: IChannel[];
 }

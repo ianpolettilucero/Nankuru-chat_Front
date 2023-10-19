@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { IChannel } from './channel.type';
 
 @Component({
   selector: 'app-channel',
@@ -6,6 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./channel.component.css']
 })
 export class ChannelComponent {
-  textChannelName: string = 'Distrito bubu';
-  voiceChannelName: string = 'Bubus singing';
+  
+  @Input()
+  channel!:IChannel;
+
+  type: string = 'text';  // types: text, voice
 }

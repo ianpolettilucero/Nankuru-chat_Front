@@ -24,19 +24,22 @@ export class ChatComponent implements OnInit {
   cur_server_id:number = 2;
   serverName:string = 'choose a server and channel :p';
 
-  constructor(private chatService:ChatService) {}
+
+  constructor(private chatService:ChatService) { }
 
   async ngOnInit()
   {
     const userId = localStorage.getItem(environment.localStorage_user_id);
 
-    if (!userId) return;
+    if (!userId) return; // redirigir a otra pagina
 
     // get all servers where user is member
     this.servers = await firstValueFrom(
       this.chatService.getServersByUser(parseInt(userId))
     ) as IServer[];
     
+    console.log(this.servers)
+
     // load user data
     this.user = await firstValueFrom(this.chatService.getUser(parseInt(userId))) as IUser;
     
