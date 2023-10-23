@@ -12,6 +12,9 @@ import { MessageComponent } from './chat/message/message.component';
 import { ServerComponent } from './chat/server/server.component';
 import { ChannelComponent } from './chat/server/channel/channel.component';
 import { SidePanelComponent } from './side-panel/side-panel.component';
+import { ProfileSidePanelComponent } from './side-panel/profile-side-panel/profile-side-panel.component';
+import { FriendsComponent } from './side-panel/friends/friends.component';
+import { EnemiesComponent } from './side-panel/enemies/enemies.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,10 @@ import { SidePanelComponent } from './side-panel/side-panel.component';
     MessageComponent,
     ServerComponent,
     ChannelComponent,
-    SidePanelComponent
+    SidePanelComponent,
+    ProfileSidePanelComponent,
+    FriendsComponent,
+    EnemiesComponent
   ],
   imports: [
     BrowserModule,
