@@ -15,6 +15,8 @@ import { SidePanelComponent } from './side-panel/side-panel.component';
 import { ProfileSidePanelComponent } from './side-panel/profile-side-panel/profile-side-panel.component';
 import { FriendsComponent } from './side-panel/friends/friends.component';
 import { EnemiesComponent } from './side-panel/enemies/enemies.component';
+import { FriendsAddedComponent } from './side-panel/friends/friends-added/friends-added.component';
+import { EnemiesAddedComponent } from './side-panel/enemies/enemies-added/enemies-added.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { EnemiesComponent } from './side-panel/enemies/enemies.component';
     SidePanelComponent,
     ProfileSidePanelComponent,
     FriendsComponent,
-    EnemiesComponent
+    EnemiesComponent,
+    FriendsAddedComponent,
+    EnemiesAddedComponent
   ],
   imports: [
     BrowserModule,
