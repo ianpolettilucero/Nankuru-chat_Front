@@ -45,12 +45,13 @@ export class RegisterComponent {
       this.desc
     )
     .subscribe(data => {
-      console.log('Response:', data);
+      console.log('Success!');
       // kaligrametro@gmail.com
       // 123456
     });
   }
 
+  // [DEPRECATE]
   toBase64(image:string) 
   {
     console.log('toBase64(): -> TODO');

@@ -22,7 +22,7 @@
       <h1 class="text-2xl ml-[1vh] textosexo"> Nankuru-chat </h1>
     </div>
     <div class="navbar bg-[#575757] ml-[20%] w-[80%] h-[10vh] text-2xl  absolute">
-      <h1 class="ml-[3vh]"> {{serverName}} </h1>
+      <h1 class="ml-[3vh]"> {{serverName}} - {{channelName}} </h1>
       <div>
         <div class="btn w-[8vh] ml-[100vh] rounded-none rounded-l-lg bg-[#7B7B7B] border-none hover:bg-[#666666]"><img class="h-[5vh] w-[5vh] absolute" src="./../../assets/pin-black.png"></div>
         <div class="btn w-[8vh] rounded-none rounded-r-lg bg-[#7B7B7B] border-none hover:bg-[#666666]"><img class="h-[5vh] w-[5vh] absolute" src="./../../assets/participants-n.png"></div>
@@ -31,7 +31,7 @@
     <div class="server-container h-[90vh] mt-[10vh] flex flex-col w-[42vh]">
       <div class="server-style z-auto ">
         <p *ngFor="let server of servers">
-          <app-server [serverName]="server.name" [pfp]="server.picture" [channels]="server.channels"></app-server>
+          <app-server [id]="server.id" [serverName]="server.name" [pfp]="server.picture" [channels]="server.channels"></app-server>
         </p>
       </div>
     </div>

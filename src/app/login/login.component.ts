@@ -36,7 +36,6 @@ export class LoginComponent {
       });
 
       // redirect to /chat
-
     });
   }
 

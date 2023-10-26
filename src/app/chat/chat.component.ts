@@ -4,6 +4,7 @@ import { environment } from 'src/environments';
 import { firstValueFrom } from 'rxjs';
 import { IMessage } from './message/message.type';
 import { IServer } from './server/server.type';
+import { WsService } from './websocket/ws.service';
 
 @Component({
   selector: 'app-chat',
@@ -16,43 +17,30 @@ export class ChatComponent implements OnInit {
   user_input!:string;
 
   messages: IMessage[] = [];  
-  servers: IServer[] = [];
-  user!: IUser;
-    
-  // [TEMPORAL] USAR LOCALSTORAGE DESPUES
-  cur_channel_id:number = 12;
-  cur_server_id:number = 2;
-  serverName:string = 'choose a server and channel :p';
+  servers:  IServer [] = [];
+  user!:    IUser;
+  
+  serverName !:string;;
+  channelName!:string;
 
+  private cur_channel_id!: number;
+  private cur_server_id!:  number;
 
-  constructor(private chatService:ChatService) { }
+  constructor(
+    private chatService: ChatService,
+    private wsService:   WsService
+  ) { }
 
   async ngOnInit()
   {
     const userId = localStorage.getItem(environment.localStorage_user_id);
-
-    if (!userId) return; // redirigir a otra pagina
-
-    // get all servers where user is member
-    this.servers = await firstValueFrom(
-      this.chatService.getServersByUser(parseInt(userId))
-    ) as IServer[];
     
-    console.log(this.servers)
+    if (!userId) return; 
 
-    // load user data
-    this.user = await firstValueFrom(this.chatService.getUser(parseInt(userId))) as IUser;
+    this.servers = await firstValueFrom(this.chatService.getServersByUser(parseInt(userId))) as IServer[];
+
+    this.user    = await firstValueFrom(this.chatService.getUser(parseInt(userId))) as IUser;
     
-    // if no server/channel is stored in localdata dont fetch anything
-    if (this.cur_channel_id == 0 || this.cur_server_id == 0) return; 
-
-    this.messages = await firstValueFrom(
-      this.chatService.getMessages(
-        this.cur_server_id, 
-        this.cur_channel_id
-      )
-    ) as IMessage[];
-    this.messages.reverse();
   }
 
   addMessage()
@@ -61,49 +49,58 @@ export class ChatComponent implements OnInit {
 
     if (!userId) return;
 
-    this.chatService.addMessage(
-      this.cur_server_id,                     // current server
-      this.cur_channel_id,                    // current channel
-      parseInt(userId),                       // user that sent message (string to number)
-      this.user_input,                        // content
-      this.assumeContentType(this.user_input) // content type
-    )
+    if (!this.user_input.replace(/\s/g, '').length) return;
+
+    this.chatService.addMessage(this.cur_server_id, this.cur_channel_id, parseInt(userId), this.user_input, this.assumeContentType(this.user_input))
     .subscribe(() => {
-      //magia de malitto
-      this.messages.push(
-        {
-          content:      this.user_input,
-          content_type: this.assumeContentType(this.user_input),
-          username:     this.user.username,
-          pfp:          this.user.pfp
-        }
-      );
+
+      const message:IMessage = {
+        content:      this.user_input,
+        content_type: this.assumeContentType(this.user_input),
+        username:     this.user.username,
+        pfp:          this.user.pfp
+      }
+
+      this.wsService.sendMessage(JSON.stringify(message));
+
+      this.messages.push(message);
       this.clearInput();
+      
     });
     
   }
 
-  changeChannel(id_channel:number)
+  updateChannel(id_channel:number)
   {
-    this.cur_channel_id = id_channel; // update current channel
-    this.messages = [];               // clear other servers messages
+    this.cur_channel_id = id_channel;
+    this.messages       = [];
 
-    firstValueFrom(
-      this.chatService.getMessages(
-        this.cur_server_id, 
-        this.cur_channel_id
+
+    this.channelName = this.servers
+    .filter(server  => { return server.id  == this.cur_server_id })[0].channels
+    .filter(channel => { return channel.id == id_channel         })[0].name;
+
+
+    firstValueFrom(this.chatService.getMessages(this.cur_server_id, this.cur_channel_id))
+    .then(messages => {
+      
+      this.messages = (messages as IMessage[]).reverse()
+      
+      this.wsService.messages$
+      .subscribe(raw_msg => 
+
+        this.messages.push(JSON.parse(raw_msg as string) as IMessage)
       )
-    )
-    // load channels messages
-    .then(messages => this.messages = messages as IMessage[])
-    .catch(err => console.log(err));
+    })
+    .catch(err => { /*console.log(err)*/ });
   }
 
-  changeServer(id_server:number)
+  updateServer(id_server:number)
   {
-    this.cur_server_id = id_server;   // change current server
-    this.cur_channel_id = 0;          // force user to select channel
-    this.messages = [];               // clear messages
+    this.cur_server_id  = id_server;
+    this.messages       = [];
+
+    this.serverName = this.servers.filter(server => { return server.id == id_server })[0].name;
   }
 
   @HostListener('window:keydown', ['$event'])
@@ -119,7 +116,7 @@ export class ChatComponent implements OnInit {
 
   private assumeContentType(content:string):string
   {
-    console.log('assumeContentType(): -> TODO');
+    //console.log('assumeContentType(): -> TODO');
     return 'text'
   }
 
@@ -127,6 +124,7 @@ export class ChatComponent implements OnInit {
   {
     this.user_input = '';
   }
+
 }
 
 interface IUser 
