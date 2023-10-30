@@ -37,6 +37,10 @@ export class ChatComponent implements OnInit {
     
     if (!userId) return; 
 
+    this.wsService.messages$.subscribe();
+
+    this.wsService.login(userId);
+
     this.servers = await firstValueFrom(this.chatService.getServersByUser(parseInt(userId))) as IServer[];
 
     this.user    = await firstValueFrom(this.chatService.getUser(parseInt(userId))) as IUser;
@@ -61,7 +65,7 @@ export class ChatComponent implements OnInit {
         pfp:          this.user.pfp
       }
 
-      this.wsService.sendMessage(JSON.stringify(message));
+      this.wsService.sendMessage(message);
 
       this.messages.push(message);
       this.clearInput();
@@ -75,7 +79,6 @@ export class ChatComponent implements OnInit {
     this.cur_channel_id = id_channel;
     this.messages       = [];
 
-
     this.channelName = this.servers
     .filter(server  => { return server.id  == this.cur_server_id })[0].channels
     .filter(channel => { return channel.id == id_channel         })[0].name;
@@ -84,13 +87,10 @@ export class ChatComponent implements OnInit {
     firstValueFrom(this.chatService.getMessages(this.cur_server_id, this.cur_channel_id))
     .then(messages => {
       
-      this.messages = (messages as IMessage[]).reverse()
+      this.messages = (messages as IMessage[]).reverse();
       
       this.wsService.messages$
-      .subscribe(raw_msg => 
-
-        this.messages.push(JSON.parse(raw_msg as string) as IMessage)
-      )
+      .subscribe(raw_msg => this.messages.push(JSON.parse((raw_msg as {type:string, name:string, content:string}).content) as IMessage))
     })
     .catch(err => { /*console.log(err)*/ });
   }

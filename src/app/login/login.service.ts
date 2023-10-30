@@ -47,4 +47,5 @@ export class LoginService {
   {
     return localStorage.getItem(environment.localstorage_token_key) || 'invalid-token';
   }
+
 }
