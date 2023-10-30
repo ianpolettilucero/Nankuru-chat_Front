@@ -35,7 +35,11 @@ export class ChatComponent implements OnInit {
   {
     const userId = localStorage.getItem(environment.localStorage_user_id);
     
-    if (!userId) return; 
+    if (!userId) 
+    {
+      this.router.navigate(['/landing']);
+      return;
+    }
 
     this.wsService.messages$.subscribe();
 
