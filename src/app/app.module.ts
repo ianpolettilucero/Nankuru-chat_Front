@@ -18,6 +18,7 @@ import { EnemiesComponent } from './side-panel/enemies/enemies.component';
 import { FriendsAddedComponent } from './side-panel/friends/friends-added/friends-added.component';
 import { EnemiesAddedComponent } from './side-panel/enemies/enemies-added/enemies-added.component';
 import { UserListComponent } from './chat/server/user-list/user-list.component';
+import { ServerUsersComponent } from './chat/server/user-list/server-users/server-users.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { UserListComponent } from './chat/server/user-list/user-list.component';
     EnemiesComponent,
     FriendsAddedComponent,
     EnemiesAddedComponent,
-    UserListComponent
+    UserListComponent,
+    ServerUsersComponent
   ],
   imports: [
     BrowserModule,

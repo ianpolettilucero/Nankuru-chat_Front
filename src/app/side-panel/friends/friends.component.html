@@ -1,7 +1,7 @@
 <details class="dropdown bg-[#49753E] w-[100%] mt-[5%] rounded-lg">
     <summary class="btn ring-0 bg-[#49753E] border-none hover:bg-[#49753E] w-[98%] textosexo normal-case">Titi - Friends</summary>
     <ul class="shadow menu dropdown-content z-[1] bg-[#284221] rounded-lg w-[210%] max-h-[350%] overflow-scroll">
-        <p *ngFor="let friend of friends"> 
+        <p *ngFor="let friend of friends">
             <app-friends-added [name]="friend.name" [pfp]="friend.pfp"></app-friends-added>
         </p>
     </ul>

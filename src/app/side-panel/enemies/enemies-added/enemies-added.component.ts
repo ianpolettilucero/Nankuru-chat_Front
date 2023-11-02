@@ -6,7 +6,7 @@ import { Component,Input } from '@angular/core';
   styleUrls: ['./enemies-added.component.css']
 })
 export class EnemiesAddedComponent {
-  @Input() 
+  @Input()
   name!: string;
   @Input()
   pfp!: string;
