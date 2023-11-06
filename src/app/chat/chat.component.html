@@ -35,7 +35,7 @@
     <div class="server-container h-[90vh] mt-[10vh] flex flex-col w-[42vh]">
       <div class="server-style z-auto ">
         <p *ngFor="let server of servers">
-          <app-server [serverName]="server.name" [pfp]="server.picture"></app-server>
+          <app-server [id]="server.id" [serverName]="server.name" [pfp]="server.picture" [channels]="server.channels"></app-server>
         </p>
       </div>
     </div>
