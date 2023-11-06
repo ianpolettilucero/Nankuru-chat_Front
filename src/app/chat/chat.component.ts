@@ -1,17 +1,23 @@
-import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { ChatService } from './chat.service';
 import { environment } from 'src/environments';
 import { firstValueFrom } from 'rxjs';
 import { IMessage } from './message/message.type';
 import { IServer } from './server/server.type';
 import { WsService } from './websocket/ws.service';
+import { Router } from '@angular/router';
+import { Friend } from '../side-panel/friends/friends.component';
+import { Enemy } from '../side-panel/enemies/enemies.component';
 
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css']
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, AfterViewChecked {
+
+  @ViewChild('scrollMe') 
+  private myScrollContainer!: ElementRef;
 
   @Input()
   user_input!:string;
@@ -28,7 +34,8 @@ export class ChatComponent implements OnInit {
 
   constructor(
     private chatService: ChatService,
-    private wsService:   WsService
+    private wsService:   WsService,
+    private router:      Router
   ) { }
 
   async ngOnInit()
@@ -37,7 +44,7 @@ export class ChatComponent implements OnInit {
     
     if (!userId) 
     {
-      this.router.navigate(['/landing']);
+      this.router.navigate(['/login']);
       return;
     }
 
@@ -48,7 +55,15 @@ export class ChatComponent implements OnInit {
     this.servers = await firstValueFrom(this.chatService.getServersByUser(parseInt(userId))) as IServer[];
 
     this.user    = await firstValueFrom(this.chatService.getUser(parseInt(userId))) as IUser;
-    
+
+    this.scrollToBottom();
+
+    console.log(this.servers);
+  }
+
+  ngAfterViewChecked()
+  {
+    this.scrollToBottom();
   }
 
   addMessage()
@@ -118,6 +133,16 @@ export class ChatComponent implements OnInit {
     }
   }
 
+  logout()
+  {
+    localStorage.removeItem(environment.localstorage_token_key);
+    localStorage.removeItem(environment.localStorage_user_id);
+    localStorage.removeItem(environment.localstorage_cur_server);
+    localStorage.removeItem(environment.localstorage_cur_channel);
+
+    this.router.navigate(['/login']);
+  }
+
   private assumeContentType(content:string):string
   {
     //console.log('assumeContentType(): -> TODO');
@@ -129,11 +154,32 @@ export class ChatComponent implements OnInit {
     this.user_input = '';
   }
 
+  private scrollToBottom()
+  {
+    try 
+    {
+      this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+    }
+    catch(err) {}
+  }
+
+  getUsers()
+  {
+    //if (servers == undefined) return [];
+    //console.log('Data',servers);
+    return [];
+  }
+
 }
 
 interface IUser 
 {
+  description: string;
+  email: string;
   id: number;
-  username: string;
+  //password: string;
   pfp: string;
+  username: string;
+  friends:Friend[];
+  enemies:Enemy[];
 }
