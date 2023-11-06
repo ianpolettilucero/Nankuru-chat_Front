@@ -1,0 +1,21 @@
+<div class="drawer drawer-end">
+  <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
+  <div class="drawer-content">
+    <!-- Page content here -->
+    <label for="my-drawer-4" class="drawer-button btn btn-primary w-[8vh] rounded-none rounded-r-lg bg-[#7B7B7B] border-none hover:bg-[#666666]"><img class="h-[5vh] w-[5vh] absolute" src="./../../../../assets/participants-n.png"></label>
+  </div>
+  <div class="drawer-side z-[2]">
+    <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>
+    <ul class="menu p-4 w-80 h-[100%] bg-[#2c2c2c] text-base-content">
+      <div class="user-drawer-content-container h-[92%] flex flex-col overflow-auto">
+        <p *ngFor="let users of users">
+          <app-enemies-added [name]="users.name" [pfp]="users.pfp"></app-enemies-added>
+        </p>
+      </div>
+      <div class="negros h-[8%] flex">
+        <div class="btn add-to-server bg-[#575757] hover:bg-[#666666] h-[100%] items-center flex justify-center textosexo normal-case"><</div>
+        <input type="text" class="useradd-name bg-[#575757] rounded-full w-[90%] ring-0 border-none hover:ring-0 hover:border-none focus:ring-0">
+      </div>
+    </ul>
+  </div>
+</div>
