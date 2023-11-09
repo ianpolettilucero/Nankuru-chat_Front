@@ -4,7 +4,7 @@ import { RegisterService } from './register.service';
 import { LoginService } from '../login/login.service';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments';
-import { IUser } from '../login/login.component';
+import { IUser } from '../types/user.type';
 
 @Component({
   selector: 'app-register',

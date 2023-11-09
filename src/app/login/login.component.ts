@@ -2,6 +2,7 @@ import { Component, HostListener, Input } from '@angular/core';
 import { LoginService } from './login.service';
 import { environment } from 'src/environments';
 import { Router } from '@angular/router';
+import { IUser } from '../types/user.type';
 
 @Component({
   selector: 'app-login',
@@ -84,14 +85,4 @@ export class LoginComponent {
     
   }
 
-}
-
-export interface IUser 
-{
-  id: number;
-  username: string;
-  pfp: string;
-  email: string;
-  password: string;
-  description: string;
 }

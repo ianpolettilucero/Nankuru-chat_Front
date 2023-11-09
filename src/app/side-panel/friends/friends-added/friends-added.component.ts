@@ -6,8 +6,11 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./friends-added.component.css']
 })
 export class FriendsAddedComponent {
+  
   @Input() 
   name!: string;
+
   @Input()
   pfp!: string;
+  
 }

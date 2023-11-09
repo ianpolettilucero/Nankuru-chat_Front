@@ -4,9 +4,13 @@ import { ChatComponent } from './chat/chat.component';
 import { LandingComponent } from './landing/landing.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { ServerComponent } from './chat/server/server.component';
 
 const routes: Routes = [
+  {
+    path:'',
+    redirectTo: 'landing',
+    pathMatch: 'full'
+  },
   {
     path: 'chat',
     component: ChatComponent,
@@ -26,12 +30,7 @@ const routes: Routes = [
     path: 'register',
     component: RegisterComponent,
     title: 'Register'
-  },
-  {
-    path: 'test',
-    component: ServerComponent,
-    title: 'test'
-  },
+  }
 ];
 
 @NgModule({
