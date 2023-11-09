@@ -1,5 +1,7 @@
-<div class="message flex w-[150vh] mt-[2vh] ">
-    <div class="h-[6.5vh] w-[6.5vh]"><img class="rounded-full" src="data:image/jpeg;base64, {{pfp}}"></div>
-    <div class="textosexo ml-[1vh]"><p> {{username}} </p></div>
-    <div class="textosexo ml-[7.5vh] mt-[3vh] text-[#ffffff] absolute"><p> {{content}} </p></div>
+<div class="message flex flex-row w-[150vh] break-words break-normal mt-[2vh] ">
+    <div class="max-h-[6.5vh] max-w-[6.5vh]"><img class="rounded-full" src="data:image/jpeg;base64, {{pfp}}"></div>
+    <div class="flex flex-col">
+        <div class="textosexo ml-[2vh] "><p> {{username}} </p></div>
+        <div class="textosexo ml-[2vh] text-[#ffffff] break-words "><p> {{content}} </p></div>
+    </div>
 </div>
