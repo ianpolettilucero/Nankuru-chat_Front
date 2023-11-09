@@ -14,7 +14,11 @@
 
 <body>
     <div class="sidepanel z-auto">
+
+        <!-- <TODO-BACK> -->
         <app-side-panel></app-side-panel>
+        <!-- <TODO-BACK> -->
+
     </div>
   <div class="fondo bg-[#2C2C2C] w-[100%] h-[100vh] flex">
     <div class="navbar bg-[#575757] w-[20%] h-[10vh] z-20 rounded absolute">
@@ -26,24 +30,41 @@
         <h1 class="ml-[3vh]"> {{serverName}} </h1>
       </div>
       <div>
-        <div class="btn w-[60%] rounded-none rounded-l-lg bg-[#7B7B7B] border-none hover:bg-[#666666] text-[#000000] textosexo normal-case">Logout</div>
+        <div
+          (click)="logout()"
+          class="btn w-[60%] rounded-none rounded-l-lg bg-[#7B7B7B] border-none hover:bg-[#666666] text-[#000000] textosexo normal-case"
+        >Logout</div>
         <div class="btn w-[8vh] rounded-none rounded-r-lg bg-[#7B7B7B] border-none hover:bg-[#666666]"><img class="h-[5vh] w-[5vh] absolute" src="./../../assets/participants-n.png">
-          <app-user-list></app-user-list>
+          <!-- TODO -->
+          <app-user-list> </app-user-list>
+          <!-- TODO -->
         </div>
       </div>
     </div>
     <div class="server-container h-[90vh] mt-[10vh] flex flex-col w-[42vh]">
       <div class="server-style z-auto ">
         <p *ngFor="let server of servers">
-          <app-server [id]="server.id" [serverName]="server.name" [pfp]="server.picture" [channels]="server.channels"></app-server>
+          <app-server
+            [id]="server.id"
+            [serverName]="server.name"
+            [pfp]="server.picture"
+            [channels]="server.channels"
+          ></app-server>
         </p>
       </div>
     </div>
     <div class="chatContainer bg-[#373737] mt-[10vh] mb-[5%] w-[90%] h-[90vh] flex flex-col">
-      <div class="messageContainer bg-[#373737] border-[#ffffff] ml-[5vh] h-[77vh] w-[150vh] overflow-y-auto flex flex-col">
+      <div
+      #scrollMe
+      class="messageContainer bg-[#373737] border-[#ffffff] ml-[5vh] h-[77vh] w-[150vh] overflow-y-auto flex flex-col">
         <div  class="left-0 overflow-y ">
           <p *ngFor="let message of messages">
-            <app-message class="" [content]="message.content" [content_type]="message.content_type" [username]="message.username" [pfp]="message.pfp"></app-message>
+            <app-message
+              [content]="message.content"
+              [content_type]="message.content_type"
+              [username]="message.username"
+              [pfp]="message.pfp"
+            ></app-message>
           </p>
         </div>
       </div>

@@ -1,3 +1,4 @@
+import { IUser } from "src/app/login/login.component";
 import { IChannel } from "./channel/channel.type";
 
 export interface IServer 
@@ -6,4 +7,5 @@ export interface IServer
     name: string;
     picture: string;
     channels: IChannel[];
+    users: IUser[];
 }

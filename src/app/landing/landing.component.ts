@@ -10,7 +10,8 @@ export class LandingComponent {
   constructor(private router: Router) { 
 
   }
- goToLogin(){
-  this.router.navigate(['/login']);
- }
+
+  goToLogin(){
+    this.router.navigate(['/login']);
+  }
 }
