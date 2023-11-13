@@ -20,4 +20,5 @@ export class ProfileSidePanelComponent {
 
   @Input()
   pfp!:string;
+
 }

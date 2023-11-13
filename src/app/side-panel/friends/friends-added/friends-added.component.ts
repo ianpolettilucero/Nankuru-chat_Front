@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 
+
 @Component({
   selector: 'app-friends-added',
   templateUrl: './friends-added.component.html',
@@ -12,5 +13,5 @@ export class FriendsAddedComponent {
 
   @Input()
   pfp!: string;
-  
+
 }

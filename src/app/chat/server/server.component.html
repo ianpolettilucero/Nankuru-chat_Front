@@ -1,17 +1,32 @@
-<div (click)="changeServer()"> 
-    <details class="dropdown hover:mb-32">
-        <summary class="btn bg-[#404040] h-[10vh] w-[42vh] rounded-none z-0 items-center hover:bg-[#2B2B2B] border-none">
+<div (click)="changeServer()">
+    <details class="dropdown flex flex-col">
+        <summary class="btn bg-[#404040] h-[10vh] w-[42vh] rounded-none items-center hover:bg-[#2B2B2B] border-none ">
             <div class="h-[6.5vh] w-[6.5vh]">
                 <img class="rounded-full" src="data:image/jpeg;base64, {{pfp}}">
             </div>
-            <div class="textosexo normal-case">
+            <div class="textosexo normal-case flex flex-col">
                 <p># {{serverName}}</p>
             </div>
+            <div>
+            </div>
         </summary>
-        <ul class="p-2 shadow menu dropdown-content w-52 bg-[#404040] ml-[10vh]">
+        <ul class="p-2 shadow menu dropdown-content w-52 bg-[#404040] ml-[10vh] flex flex-col !static">
             <p *ngFor="let channel of channels">
                 <app-channel [channel]="channel"></app-channel>
             </p>
+            <!--
+            <div class="bg-[#fff] flex">
+                <div class="add_channel flex">
+                    <input type="text" class="w-[50%] h-[30%]">
+                    <img src="./../../../assets/add_channel.png" class="w-[20%] h-[40%]">
+                </div>
+            </div> -->
+            <div class="channel bg-[#404040] flex items-center rounded-none border-none ring-0 normal-case">
+                <div class="textosexo flex">
+                    <input type="text" class="w-[100%] h-[4vh] bg-[#303030] disabled border-none focus:border-none focus:ring-0">
+                    <a href=""><img src="./../../../assets/add_channel.png" class="w-[5vh] h-[4vh] ring-0 border-none focus:ring-0 focus:border-none"></a>
+                </div>
+            </div>
         </ul>
     </details>
 </div>

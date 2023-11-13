@@ -7,15 +7,18 @@
   <div class="drawer-side z-10 !pointer-events-none">
     <label for="my-drawer" class="drawer-overlay h-[100%] w-[20%]"></label>
     <ul class="menu p-4 w-[42vh] h-[76vh] mt-[10vh] bg-[#2c2c2c] text-base-content pointer-events-auto">
+      
       <app-profile-side-panel
         [username]="user.username"
         [descripcion]="user.description"
         [gmail]="user.email"
         [pfp]="user.pfp"
       ></app-profile-side-panel>
+      
       <div class="friends&enemiesContainer flex">
-        <app-friends [friends]="friends"></app-friends>
-        <app-enemies [enemies]="enemies"></app-enemies>
+        <app-friends [friends]="user.friends"></app-friends>
+        <app-enemies [enemies]="user.enemies"></app-enemies>
+
       </div>
     </ul>
   </div>

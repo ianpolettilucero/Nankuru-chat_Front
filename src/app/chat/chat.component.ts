@@ -7,6 +7,7 @@ import { IServer } from './server/server.type';
 import { WsService } from './websocket/ws.service';
 import { Router } from '@angular/router';
 import { IUser, defaultIUser } from '../types/user.type';
+import { isUrl } from '../utils/isUrl.utils';
 
 @Component({
   selector: 'app-chat',
@@ -15,7 +16,7 @@ import { IUser, defaultIUser } from '../types/user.type';
 })
 export class ChatComponent implements OnInit, AfterViewChecked {
 
-  // autoscroll
+  // #scrollMe
   @ViewChild('scrollMe') 
   private myScrollContainer!: ElementRef;
 
@@ -40,6 +41,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
 
   async ngOnInit()
   {
+
     const userId = localStorage.getItem(environment.localStorage_user_id);
     
     if (!userId) 
@@ -56,9 +58,8 @@ export class ChatComponent implements OnInit, AfterViewChecked {
 
     this.user    = await firstValueFrom(this.chatService.getUser(parseInt(userId))) as IUser;
 
-    //console.log(this.user);
-
     this.scrollToBottom();
+
   }
 
   ngAfterViewChecked()
@@ -69,8 +70,14 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   addMessage()
   {
     const userId = localStorage.getItem(environment.localStorage_user_id);
+    
+    if (!userId) 
+    {
+      this.router.navigate(['/landing']);
+      return;
+    }
 
-    if (!userId) return;
+    this.wsService.messages$.subscribe();
 
     if (!this.user_input.replace(/\s/g, '').length) return;
 
@@ -88,8 +95,8 @@ export class ChatComponent implements OnInit, AfterViewChecked {
         let out:number[] = [];
         this.servers
         .filter(server => { return server.id == this.cur_server_id })[0]
-        .users.
-        forEach(user => out.push(user.id));
+        .users
+        .forEach(user => out.push(user.id));
         return out;
       }
 
@@ -134,6 +141,8 @@ export class ChatComponent implements OnInit, AfterViewChecked {
           content:   string, 
           file:      File | undefined 
         };
+
+        console.log(wsMsg);
         
         // check user is in current server and channel
         if (wsMsg.server != this.cur_server_id || wsMsg.channel != this.cur_channel_id) return;
@@ -144,7 +153,8 @@ export class ChatComponent implements OnInit, AfterViewChecked {
         this.lastSentDate = +wsMsg.timeStamp;
           
         const msg = JSON.parse(wsMsg.content) as IMessage;
-        msg.pfp = wsMsg.pfp?.toString() as string;
+        // no tengo idea de como hacer esto, hay q setear la ruta aca
+        // msg.pfp = wsMsg.pfp?.toString() as string; 
         this.messages.push(msg);
 
       });
@@ -181,15 +191,13 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     this.router.navigate(['/login']);
   }
 
+
   private assumeContentType(content:string):string
   {
-    //console.log('assumeContentType(): -> TODO');
-    return 'text'
-  }
 
-  private clearInput()
-  {
-    this.user_input = '';
+    if (isUrl(content)) return 'url';
+
+    return 'text';
   }
 
   private scrollToBottom()
@@ -217,6 +225,11 @@ export class ChatComponent implements OnInit, AfterViewChecked {
 
   private lastSentDate:number = 0;
 
+  private clearInput()
+  {
+    this.user_input = '';
+  }
+
+
+
 }
-
-

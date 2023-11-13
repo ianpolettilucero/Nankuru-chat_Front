@@ -20,10 +20,11 @@ export class WsService {
     this.socket$.next(
       {
         type: 'login',
-        name: id,
+        name: id.toString(),
       }
     );
   }
+  
 
   public sendMessage(msg: IMessage, id_server:number, id_channel:number, users:number[]){
 
