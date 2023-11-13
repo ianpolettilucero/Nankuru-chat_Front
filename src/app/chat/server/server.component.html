@@ -1,15 +1,17 @@
-<details class="dropdown hover:mb-32">
-    <summary class="btn bg-[#404040] h-[10vh] w-[42vh] rounded-none z-0 items-center hover:bg-[#2B2B2B] border-none">
-        <div class="h-[6.5vh] w-[6.5vh]">
-            <img class="rounded-full" src="data:image/jpeg;base64, {{pfp}}">
-        </div>
-        <div class="textosexo normal-case">
-            <p># {{serverName}}</p>
-        </div>
-    </summary>
-    <ul class="p-2 shadow menu dropdown-content w-52 bg-[#404040] ml-[10vh]">
-      <app-channel></app-channel>
-    </ul>
-</details>
-
-
+<div (click)="changeServer()"> 
+    <details class="dropdown hover:mb-32">
+        <summary class="btn bg-[#404040] h-[10vh] w-[42vh] rounded-none z-0 items-center hover:bg-[#2B2B2B] border-none">
+            <div class="h-[6.5vh] w-[6.5vh]">
+                <img class="rounded-full" src="data:image/jpeg;base64, {{pfp}}">
+            </div>
+            <div class="textosexo normal-case">
+                <p># {{serverName}}</p>
+            </div>
+        </summary>
+        <ul class="p-2 shadow menu dropdown-content w-52 bg-[#404040] ml-[10vh]">
+            <p *ngFor="let channel of channels">
+                <app-channel [channel]="channel"></app-channel>
+            </p>
+        </ul>
+    </details>
+</div>

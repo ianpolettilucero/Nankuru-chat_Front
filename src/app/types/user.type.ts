@@ -1,9 +1,26 @@
+import { IEnemy } from "./enemy.type";
+import { IFriend } from "./friend.type";
+
 export interface IUser 
 {
-    id: number;
-    username: string;
-    pfp: string;
-    email: string;
-    password: string;
-    description: string;
+  description: string;
+  email:       string;
+  id:          number;
+  pfp:         string;
+  username:    string;
+  friends:     IFriend[];
+  enemies:     IEnemy[];
+}
+
+export function defaultIUser():IUser
+{
+  return {
+    description: '', 
+    email:       '',
+    id:          0,
+    pfp:         '',
+    username:    '',
+    friends:     [],
+    enemies:     []    
+  }
 }

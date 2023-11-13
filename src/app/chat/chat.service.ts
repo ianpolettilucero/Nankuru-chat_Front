@@ -35,16 +35,10 @@ export class ChatService {
 
   getMessages(id_server:number, id_channel:number) {
     return this.http.get(
-      `${environment.api_url}/server/${id_server}/channel/${id_channel}/messages`,
+      `${environment.api_url}/server/${id_server}/channels/${id_channel}/messages`,
       { headers: { 'Authorization': this.getToken() } }
     );
   }
-
-  /* 
-  test user: 
-    test_mail@gmail.com 
-    1234 
-  */
 
   addMessage(id_server:number, id_channel:number, id_sender:number, content:string, content_type:string)
   {
@@ -68,6 +62,14 @@ export class ChatService {
   getToken():string 
   {
     return localStorage.getItem(environment.localstorage_token_key) || 'invalid-token';
+  }
+
+  getUser(id_user:number)
+  {
+    return this.http.get(
+      `${environment.api_url}/user/${id_user}`,
+      { headers: { 'Authorization': this.getToken() } }
+    )
   }
 
 }

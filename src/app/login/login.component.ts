@@ -1,6 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, HostListener, Input } from '@angular/core';
 import { LoginService } from './login.service';
 import { environment } from 'src/environments';
+import { Router } from '@angular/router';
+import { IUser } from '../types/user.type';
 
 @Component({
   selector: 'app-login',
@@ -8,36 +10,56 @@ import { environment } from 'src/environments';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
+  
   @Input()
   email:string = '';
 
   @Input()
   password:string = '';
 
-  constructor(private loginService:LoginService) { }
+  //TODO
+  errMsg:string = '';
+
+  constructor(
+    private loginService:LoginService,
+    private router:Router
+  ) { }
 
   submit()
   {
     if (!this.validateAllData()) return;
 
-    this.loginService.login(this.email, this.password)
-    .subscribe(data => {
+    this.email = this.email.replace(/\s/g, ''); // delete empty spaces
 
-      const token = data.toString();
+    this.loginService
+    .login(this.email, this.password)
+    .subscribe(
+      token => {
 
-      localStorage.setItem(environment.localstorage_token_key, token);
+        localStorage.setItem(
+          environment.localstorage_token_key, 
+          token.toString()
+        );
 
-      this.loginService.getUserByMail(this.email)
-      .subscribe(user_db => {
-        const user:IUser = user_db as IUser;
+        this.loginService
+        .getUserByMail(this.email)
+        .subscribe(
+          user_db => {
+            const user:IUser = user_db as IUser;
 
-        //localStorage.setItem(environment.localstorage_email_key, user.email);
-        localStorage.setItem(environment.localStorage_user_id, user.id.toString());
-      });
+            localStorage.setItem(
+              environment.localStorage_user_id, 
+              user.id.toString()
+            );
+            
+            this.router.navigate(['/chat']);
+          },
+          err => this.errMsg = JSON.parse(JSON.stringify(err)).error.message
+        );
 
-      // redirect to /chat
-
-    });
+      },
+      err => this.errMsg = JSON.parse(JSON.stringify(err)).error.message
+    );
   }
 
   validateAllData():boolean
@@ -46,14 +68,21 @@ export class LoginComponent {
     return true;
   }
 
-}
+  goToRegister()
+  {
+    this.router.navigate(['/register']);
+  }
 
-export interface IUser 
-{
-  id: number;
-  username: string;
-  pfp: string;
-  email: string;
-  password: string;
-  description: string;
+  @HostListener('window:keydown', ['$event'])
+  onEnterPress(event:KeyboardEvent)
+  {
+    switch (event.key)
+    {
+      case 'Enter':
+        this.submit();
+        break;
+    } 
+    
+  }
+
 }
