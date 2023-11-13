@@ -67,12 +67,19 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   {
     this.scrollToBottom();
   }
+ 
 
   addMessage()
   {
     const userId = localStorage.getItem(environment.localStorage_user_id);
+    
+    if (!userId) 
+    {
+      this.router.navigate(['/landing']);
+      return;
+    }
 
-    if (!userId) return;
+    this.wsService.messages$.subscribe();
 
     if (!this.user_input.replace(/\s/g, '').length) return;
 
@@ -182,21 +189,14 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     localStorage.removeItem(environment.localStorage_user_id);
     localStorage.removeItem(environment.localstorage_cur_server);
     localStorage.removeItem(environment.localstorage_cur_channel);
-
-    this.router.navigate(['/login']);
   }
-
+  
   private assumeContentType(content:string):string
   {
 
     if (isUrl(content)) return 'url';
 
     return 'text';
-  }
-
-  private clearInput()
-  {
-    this.user_input = '';
   }
 
   private scrollToBottom()
@@ -223,5 +223,10 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   }
 
   private lastSentDate:number = 0;
+
+  private clearInput()
+  {
+    this.user_input = '';
+  }
 
 }

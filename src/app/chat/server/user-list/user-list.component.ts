@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { IUser } from 'src/app/types/user.type';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-user-list',
@@ -12,4 +13,3 @@ export class UserListComponent {
   users: IUser[] = [];
 
 }
-

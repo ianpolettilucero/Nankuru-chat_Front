@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+
 
 @Component({
   selector: 'app-friends-added',
@@ -12,5 +13,5 @@ export class FriendsAddedComponent {
 
   @Input()
   pfp!: string;
-  
+
 }
