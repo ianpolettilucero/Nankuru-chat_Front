@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { IUser } from '../login/login.component';
-import { Friend } from './friends/friends.component';
-import { Enemy } from './enemies/enemies.component';
+
 
 @Component({
   selector: 'app-side-panel',
@@ -11,13 +10,7 @@ import { Enemy } from './enemies/enemies.component';
 export class SidePanelComponent {
 
   @Input()
-  user!:IUser;
-
-  @Input()
-  friends: Friend[] = [];
-
-  @Input()
-  enemies: Enemy[] = [];
+  user:IUser = {} as IUser;
   
 }
 

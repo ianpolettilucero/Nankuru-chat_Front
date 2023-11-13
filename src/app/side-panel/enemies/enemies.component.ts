@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { IEnemy } from 'src/app/types/enemy.type';
 
 @Component({
   selector: 'app-enemies',
@@ -8,11 +9,6 @@ import { Component, Input } from '@angular/core';
 export class EnemiesComponent {
 
   @Input()
-  enemies: Enemy[] = [];
+  enemies!:IEnemy[];
 
-}
-
-export interface Enemy {
-  name: string;
-  pfp: string;
 }

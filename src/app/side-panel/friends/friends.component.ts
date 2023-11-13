@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { IFriend } from 'src/app/types/friend.type';
 
 @Component({
   selector: 'app-friends',
@@ -8,11 +9,7 @@ import { Component, Input } from '@angular/core';
 export class FriendsComponent {
 
   @Input()
-  friends: Friend[] = [];
+  friends!: IFriend[];
 
 }
 
-export interface Friend {
-  name: string;
-  pfp: string;
-}

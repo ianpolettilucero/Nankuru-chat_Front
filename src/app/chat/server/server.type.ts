@@ -1,4 +1,4 @@
-import { IUser } from "src/app/login/login.component";
+import { IUser } from "src/app/types/user.type";
 import { IChannel } from "./channel/channel.type";
 
 export interface IServer 

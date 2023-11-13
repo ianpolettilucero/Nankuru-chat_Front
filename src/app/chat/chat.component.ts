@@ -6,8 +6,8 @@ import { IMessage } from './message/message.type';
 import { IServer } from './server/server.type';
 import { WsService } from './websocket/ws.service';
 import { Router } from '@angular/router';
-import { Friend } from '../side-panel/friends/friends.component';
-import { Enemy } from '../side-panel/enemies/enemies.component';
+import { IUser, defaultIUser } from '../types/user.type';
+import { isUrl } from '../utils/isUrl.utils';
 
 @Component({
   selector: 'app-chat',
@@ -16,15 +16,16 @@ import { Enemy } from '../side-panel/enemies/enemies.component';
 })
 export class ChatComponent implements OnInit, AfterViewChecked {
 
+  // #scrollMe
   @ViewChild('scrollMe') 
   private myScrollContainer!: ElementRef;
 
   @Input()
-  user_input!:string;
+  user_input:string = '';
 
   messages: IMessage[] = [];  
   servers:  IServer [] = [];
-  user!:    IUser;
+  user:     IUser = defaultIUser();
   
   serverName !:string;;
   channelName!:string;
@@ -40,6 +41,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
 
   async ngOnInit()
   {
+
     const userId = localStorage.getItem(environment.localStorage_user_id);
     
     if (!userId) 
@@ -58,7 +60,6 @@ export class ChatComponent implements OnInit, AfterViewChecked {
 
     this.scrollToBottom();
 
-    console.log(this.servers);
   }
 
   ngAfterViewChecked()
@@ -69,8 +70,14 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   addMessage()
   {
     const userId = localStorage.getItem(environment.localStorage_user_id);
+    
+    if (!userId) 
+    {
+      this.router.navigate(['/landing']);
+      return;
+    }
 
-    if (!userId) return;
+    this.wsService.messages$.subscribe();
 
     if (!this.user_input.replace(/\s/g, '').length) return;
 
@@ -84,7 +91,21 @@ export class ChatComponent implements OnInit, AfterViewChecked {
         pfp:          this.user.pfp
       }
 
-      this.wsService.sendMessage(message);
+      const userIds = () => {
+        let out:number[] = [];
+        this.servers
+        .filter(server => { return server.id == this.cur_server_id })[0]
+        .users
+        .forEach(user => out.push(user.id));
+        return out;
+      }
+
+      this.wsService.sendMessage(
+        message, 
+        this.cur_server_id, 
+        this.cur_channel_id,
+        userIds()
+      );
 
       this.messages.push(message);
       this.clearInput();
@@ -109,9 +130,36 @@ export class ChatComponent implements OnInit, AfterViewChecked {
       this.messages = (messages as IMessage[]).reverse();
       
       this.wsService.messages$
-      .subscribe(raw_msg => this.messages.push(JSON.parse((raw_msg as {type:string, name:string, content:string}).content) as IMessage))
+      .subscribe(raw_msg => 
+      {
+        const wsMsg = raw_msg as {
+          type:      string, 
+          pfp:       File | undefined, 
+          server:    number, 
+          channel:   number, 
+          timeStamp: string, 
+          content:   string, 
+          file:      File | undefined 
+        };
+
+        console.log(wsMsg);
+        
+        // check user is in current server and channel
+        if (wsMsg.server != this.cur_server_id || wsMsg.channel != this.cur_channel_id) return;
+
+        // to avoid socket problem of sending same message twice
+        if (this.lastSentDate == +wsMsg.timeStamp) return;
+        
+        this.lastSentDate = +wsMsg.timeStamp;
+          
+        const msg = JSON.parse(wsMsg.content) as IMessage;
+        // no tengo idea de como hacer esto, hay q setear la ruta aca
+        // msg.pfp = wsMsg.pfp?.toString() as string; 
+        this.messages.push(msg);
+
+      });
     })
-    .catch(err => { /*console.log(err)*/ });
+    .catch(err => {});
   }
 
   updateServer(id_server:number)
@@ -143,11 +191,39 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     this.router.navigate(['/login']);
   }
 
+
   private assumeContentType(content:string):string
   {
-    //console.log('assumeContentType(): -> TODO');
-    return 'text'
+
+    if (isUrl(content)) return 'url';
+
+    return 'text';
   }
+
+  private scrollToBottom()
+  {
+    try 
+    {
+      this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+    }
+    catch(err) {}
+  }
+
+  getUsers()
+  {
+    let data: IUser[];
+    try 
+    {
+      data = this.servers.filter(server => { return server.id == this.cur_server_id})[0].users.sort();
+    }
+    catch (err)
+    {
+      data = [];
+    }
+    return data;
+  }
+
+  private lastSentDate:number = 0;
 
   private clearInput()
   {
@@ -170,16 +246,4 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     return [];
   }
 
-}
-
-interface IUser 
-{
-  description: string;
-  email: string;
-  id: number;
-  //password: string;
-  pfp: string;
-  username: string;
-  friends:Friend[];
-  enemies:Enemy[];
 }
