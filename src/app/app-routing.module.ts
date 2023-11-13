@@ -8,6 +8,11 @@ import { ServerComponent } from './chat/server/server.component';
 
 const routes: Routes = [
   {
+    path:'',
+    redirectTo: 'landing',
+    pathMatch: 'full'
+  },
+  {
     path: 'chat',
     component: ChatComponent,
     title: 'Chat'
@@ -26,12 +31,7 @@ const routes: Routes = [
     path: 'register',
     component: RegisterComponent,
     title: 'Register'
-  },
-  {
-    path: 'test',
-    component: ServerComponent,
-    title: 'test'
-  },
+  }
 ];
 
 @NgModule({

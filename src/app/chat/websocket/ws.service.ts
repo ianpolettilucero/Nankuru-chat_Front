@@ -2,6 +2,7 @@ import { webSocket, WebSocketSubject } from 'rxjs/webSocket'
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments';
 import { IMessage } from '../message/message.type';
+import { IUser } from 'src/app/types/user.type';
 
 @Injectable({
   providedIn: 'root'
@@ -19,22 +20,25 @@ export class WsService {
     this.socket$.next(
       {
         type: 'login',
-        name: id,
-        content: '-'
+        name: id.toString(),
       }
     );
   }
+  
 
-  public sendMessage(msg: IMessage){
+  public sendMessage(msg: IMessage, id_server:number, id_channel:number, users:number[]){
 
     const parsedMsg = 
     {
-      type: 'msg',
-      name: msg.username,
-      content: JSON.stringify(msg)
+      type:      'msg', 
+      pfp:       new File([], 'TODO'),
+      server:    id_server,
+      channel:   id_channel,
+      timeStamp: Date.now(),
+      content:   JSON.stringify(msg),
+      files:     undefined,
+      serverUsers: users
     }
-
-    console.log(parsedMsg);
 
     this.socket$.next(parsedMsg)
   }

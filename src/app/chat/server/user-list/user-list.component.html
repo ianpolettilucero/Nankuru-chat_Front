@@ -8,8 +8,8 @@
     <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>
     <ul class="menu p-4 w-80 h-[100%] bg-[#2c2c2c] text-base-content">
       <div class="user-drawer-content-container h-[92%] flex flex-col overflow-auto">
-        <p *ngFor="let users of users">
-          <app-enemies-added [name]="users.name" [pfp]="users.pfp"></app-enemies-added>
+        <p *ngFor="let user of users">
+          <app-enemies-added [name]="user.username" [pfp]="user.pfp"></app-enemies-added>
         </p>
       </div>
       <div class="negros h-[8%] flex">

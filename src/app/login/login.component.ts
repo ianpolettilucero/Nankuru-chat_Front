@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, HostListener, Input } from '@angular/core';
 import { LoginService } from './login.service';
 import { environment } from 'src/environments';
 import { Router } from '@angular/router';
+import { IUser } from '../types/user.type';
 
 @Component({
   selector: 'app-login',
@@ -16,34 +17,49 @@ export class LoginComponent {
   @Input()
   password:string = '';
 
+  //TODO
+  errMsg:string = '';
+
   constructor(
     private loginService:LoginService,
+    private router:Router
   ) { }
 
   submit()
   {
     if (!this.validateAllData()) return;
 
+    this.email = this.email.replace(/\s/g, ''); // delete empty spaces
+
     this.loginService
     .login(this.email, this.password)
-    .subscribe(data => {
+    .subscribe(
+      token => {
 
-      const token = data.toString();
+        localStorage.setItem(
+          environment.localstorage_token_key, 
+          token.toString()
+        );
 
-      localStorage.setItem(environment.localstorage_token_key, token);
+        this.loginService
+        .getUserByMail(this.email)
+        .subscribe(
+          user_db => {
+            const user:IUser = user_db as IUser;
 
-      this.loginService.getUserByMail(this.email)
-      .subscribe(user_db => {
-        const user:IUser = user_db as IUser;
+            localStorage.setItem(
+              environment.localStorage_user_id, 
+              user.id.toString()
+            );
+            
+            this.router.navigate(['/chat']);
+          },
+          err => this.errMsg = JSON.parse(JSON.stringify(err)).error.message
+        );
 
-        localStorage.setItem(environment.localStorage_user_id, user.id.toString());
-
-        //this.wsService.login(user.id);
-      });
-
-      // redirect to /chat
-      //this.router.navigate(['/chat']);
-    });
+      },
+      err => this.errMsg = JSON.parse(JSON.stringify(err)).error.message
+    );
   }
 
   validateAllData():boolean
@@ -52,14 +68,21 @@ export class LoginComponent {
     return true;
   }
 
-}
+  goToRegister()
+  {
+    this.router.navigate(['/register']);
+  }
 
-export interface IUser 
-{
-  id: number;
-  username: string;
-  pfp: string;
-  email: string;
-  password: string;
-  description: string;
+  @HostListener('window:keydown', ['$event'])
+  onEnterPress(event:KeyboardEvent)
+  {
+    switch (event.key)
+    {
+      case 'Enter':
+        this.submit();
+        break;
+    } 
+    
+  }
+
 }
