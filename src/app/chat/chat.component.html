@@ -41,8 +41,14 @@
         </div>
       </div>
     </div>
-    <div class="server-container h-[90vh] mt-[10vh] flex flex-col w-[42vh]">
-      <div class="server-style z-auto ">
+    <div class="server-container h-[78vh] mt-[10vh] flex flex-col w-[47.5vh] overflow-y-scroll overflow-y-hide">
+      <div class="newserver bg-[#303030] h-[7%] flex items-center">
+        <div class="textosexo flex">
+          <input type="text" placeholder="name your server here" class="w-[100%] h-[4vh] bg-[#303030] disabled border-none focus:border-none focus:ring-0">
+          <a href=""><img src="./../../../assets/anadir2.png" class="w-[5vh] h-[4vh] ring-0 border-none focus:ring-0 focus:border-none"></a>
+        </div>
+      </div>
+      <div class="server-style flex flex-col">
         <p *ngFor="let server of servers">
           <app-server
             [id]="server.id"
