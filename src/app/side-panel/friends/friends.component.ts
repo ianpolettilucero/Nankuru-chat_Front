@@ -1,6 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { IFriend } from 'src/app/types/friend.type';
-
 
 @Component({
   selector: 'app-friends',

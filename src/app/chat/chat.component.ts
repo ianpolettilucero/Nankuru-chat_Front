@@ -58,16 +58,14 @@ export class ChatComponent implements OnInit, AfterViewChecked {
 
     this.user    = await firstValueFrom(this.chatService.getUser(parseInt(userId))) as IUser;
 
-    //console.log(this.user);
-
     this.scrollToBottom();
+
   }
-  
+
   ngAfterViewChecked()
   {
     this.scrollToBottom();
   }
- 
 
   addMessage()
   {
@@ -189,8 +187,11 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     localStorage.removeItem(environment.localStorage_user_id);
     localStorage.removeItem(environment.localstorage_cur_server);
     localStorage.removeItem(environment.localstorage_cur_channel);
+
+    this.router.navigate(['/login']);
   }
-  
+
+
   private assumeContentType(content:string):string
   {
 
@@ -227,6 +228,22 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   private clearInput()
   {
     this.user_input = '';
+  }
+
+  private scrollToBottom()
+  {
+    try 
+    {
+      this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+    }
+    catch(err) {}
+  }
+
+  getUsers()
+  {
+    //if (servers == undefined) return [];
+    //console.log('Data',servers);
+    return [];
   }
 
 }

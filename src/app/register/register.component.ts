@@ -82,7 +82,6 @@ export class RegisterComponent {
       err => {
 
       });
-
   }
 
   // [DEPRECATE]

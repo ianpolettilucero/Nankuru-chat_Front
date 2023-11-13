@@ -1,7 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { IUser } from '../types/user.type';
-import { IFriend } from '../types/friend.type';
-import { IEnemy } from '../types/enemy.type';
+import { Component, Input } from '@angular/core';
+import { IUser } from '../login/login.component';
 
 
 @Component({
@@ -13,6 +11,6 @@ export class SidePanelComponent {
 
   @Input()
   user:IUser = {} as IUser;
-
+  
 }
 
