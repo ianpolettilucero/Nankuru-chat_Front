@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Convergence&display=swap" rel="stylesheet">
+  <!-- <link href="../../../dist/output.css" rel="stylesheet" > -->
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="sidepanel z-auto">
+    <app-side-panel
+      [user]="user"
+    ></app-side-panel>
+  </div>
+  <div class="fondo bg-[#2C2C2C] w-[100%] h-[100vh] flex">
+    <div class="navbar bg-[#575757] w-[20%] h-[10vh] z-20 rounded absolute">
+      <img src="./../../assets/mono.png" class="w-[30%] ml-[1vh]">
+      <h1 class="text-2xl ml-[1vh] textosexo"> Nankuru-chat </h1>
+    </div>
+    <div class="navbar bg-[#575757] ml-[20%] w-[80%] h-[10vh] text-2xl  absolute">
+      <div class="server-name-navbar w-[89%]">
+        <h1 class="ml-[3vh]"> {{serverName}} - {{channelName}} </h1>
+      </div>
+      <div>
+        <div (click)="logout()"
+          class="btn w-[60%] rounded-none rounded-l-lg bg-[#7B7B7B] border-none hover:bg-[#666666] text-[#000000] textosexo normal-case">
+          Logout
+        </div>
+        <div class="btn w-[8vh] rounded-none rounded-r-lg bg-[#7B7B7B] border-none hover:bg-[#666666]"><img
+            class="h-[5vh] w-[5vh] absolute" src="./../../assets/participants-n.png">
+          <app-user-list [users]="getUsers()"> </app-user-list>
+        </div>
+      </div>
+    </div>
+    <!--
+    <div class="mds rounded-full bg-[#ffffff] h-[8.5%] w-[5%] mt-[7.5%]">
+      <a href="*"><img src="./../../assets/mono_1-landing.jpg" class="rounded-full"></a>
+      <div class="">
+      </div>
+    </div>
+    -->
+    <div *ngIf class="server-container h-[78vh] mt-[10vh] flex flex-col w-[47.5vh] overflow-y-scroll overflow-y-hide" >
+      <div class="newserver bg-[#303030] h-[7%] flex items-center">
+        <div class="textosexo flex">
+          <input type="text" placeholder="name your server here" class="w-[100%] h-[4vh] bg-[#303030] disabled border-none focus:border-none focus:ring-0">
+          <a href=""><img src="./../../../assets/anadir2.png" class="w-[5vh] h-[4vh] ring-0 border-none focus:ring-0 focus:border-none"></a>
+        </div>
+      </div>
+      <div class="dmsChanger textosexo ml-[25%]">
+        <label class="label cursor-pointer">
+          <span class="label-text">{{ currentView }}</span>
+          <input id="serversOrDms" type="checkbox" class="opacity-0" (click)="changeView()" (click)="changeItemsView()">
+        </label>
+        <div class="notifContainers">
+        </div>
+      </div>
+      <div *ngIf="serversDisplay === 'true'" class="server-style flex flex-col">
+          <p *ngFor="let server of servers">
+            <app-server
+              [id]="server.id"
+              [serverName]="server.name"
+              [pfp]="server.picture"
+              [channels]="server.channels"
+            ></app-server>
+          </p>
+      </div>
+    </div>
+    <div class="chatContainer bg-[#373737] mt-[10vh] mb-[5%] w-[90%] h-[90vh] flex flex-col">
+      <div #scrollMe
+      class="messageContainer bg-[#373737] border-[#ffffff] ml-[5vh] h-[77vh] w-[150vh] overflow-y-auto flex flex-col">
+        <div  class="left-0 overflow-y ">
+          <p *ngFor="let message of messages">
+            <app-message
+              [content]="message.content"
+              [content_type]="message.content_type"
+              [username]="message.username"
+              [pfp]="message.pfp"
+            ></app-message>
+          </p>
+        </div>
+      </div>
+      <div class="flex">
+        <div class="chatInputContainer w-[100%] ml-[2.5%] rounded-full">
+          <input type="text" placeholder="Titis want to listen you..." class="chatInput textosexo disabled bg-[#575757] border-none text-2xl ml-[1vh] rounded-full w-[97%] h-[100%] focus:border-none focus:ring-0 break-words" [(ngModel)]="user_input">
+        </div>
+        <div
+          class="mic btn bg-[#575757] h-[9vh] w-[9vh] border-none ring-0 rounded-full items-center hover:bg-[#3A3A3A] ">
+          <img src="./../../assets/mic.png" class="w-[5vh] h-[5vh] ml-[0.3vh] border-none absolute">
+        </div>
+        <div
+          class="clip btn bg-[#575757] h-[9vh] w-[9vh] ml-[1%]  border-none ring-0 rounded-full items-center hover:bg-[#3A3A3A] ">
+          <img src="./../../assets/clip.png" class="w-[5vh] h-[5vh] ml-[0.3vh] border-none absolute">
+        </div>
+        <div class="madness btn bg-[#575757] h-[9vh] w-[9vh]  ml-[1%] mr-[2%]  border-none ring-0 rounded-full items-center hover:bg-[#3A3A3A] ">
+          <img src="./../../assets/mad.png" class="w-[6vh] h-[6vh] ml-[0.1vh] z-[0] absolute">
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

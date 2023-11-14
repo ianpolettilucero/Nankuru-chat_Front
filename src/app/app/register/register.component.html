@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Convergence&display=swap" rel="stylesheet">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="fondo bg-[#2C2C2C] w-[100%] h-[100vh] flex items-center">
+        <div
+            class="contenedor-login w-[58%] h-[68%] ml-[20%] bg-[#373737] rounded-2xl shadow-4xl shadow-black/32 dark:shadow-black/40 border-none flex">
+            <div>
+                <div class="logo flex items-center mt-[1vh] ">
+                    <img src="./../../assets/mono.png" class="object-contain w-28 ml-7 mt-[1vh]">
+                    <a class="btn btn-ghost normal-case text-4xl text-[#ffffff] textosexo mt-[3vh]">Nankuru-chat</a>
+                </div>
+                <div class="form-control w-full max-w-xs">
+                    <input type="text" placeholder="Enter your Titi username"
+                        class="input text-xl rounded-1xl focus:outline-none focus:ring-0 focus:text-[#ffffff] focus:border-transparent focus:bg-[#525252] w-[60vh] h-[5vh] bg-[#575757] placeholder-gray-400 ml-[5vh] shadow-2xl shadow-black dark:shadow-black" 
+                        [(ngModel)]="user"
+                    />
+                </div>
+                <div class="form-control w-full max-w-xs">
+                    <input type="text" placeholder="Enter your Titi email"
+                        class="input text-normal text-xl rounded-1xl mt-[3vh] focus:outline-none focus:ring-0 focus:text-[#ffffff] focus:border-transparent focus:bg-[#525252] w-[60vh] h-[5vh] bg-[#575757] placeholder-gray-400 ml-[5vh] shadow-2xl shadow-black dark:shadow-black" 
+                        [(ngModel)]="email"
+                    />
+                </div>
+                <div class="form-control w-full max-w-xs mt-[3vh]">
+                    <input type="password" placeholder="Enter your Titi password"
+                        class="input text-xl rounded-1xl focus:outline-none focus:ring-0 focus:text-[#ffffff] focus:border-transparent focus:bg-[#525252] w-[60vh] h-[5vh] bg-[#575757] placeholder-gray-400 ml-[5vh] shadow-2xl shadow-black dark:shadow-black" 
+                        [(ngModel)]="password"
+                    />
+                </div>
+                <div class="form-control w-full max-w-xs">
+                    <div class="nbirgger ">
+                        <textarea maxlength="140" name="" placeholder="Enter your Titi description" class="text-xl maxlength=15 rounded-xl mt-[3vh] border-none focus:outline-none focus:ring-0 focus:text-[#ffffff] focus:border-transparent focus:bg-[#525252] w-[60vh] h-[18vh] bg-[#575757] placeholder-gray-400 ml-[5vh] shadow-2xl shadow-black dark:shadow-black"
+                        [(ngModel)]="desc"
+                        ></textarea>
+                    </div>
+                </div>
+                <div class="tologin ml-[3%] absolute flex space-x-1 mt-[0.5%]">
+                    <div class="text-[#ffffff]">¿already have an account?</div> <!--  <a class="btn bg-transparent hover:bg-transparent ring-0 hover:ring-0">Register!</a> -->
+                    <a (click)="goToLogin()" class="hover:cursor-pointer">Login!</a>
+                </div>
+            </div>
+            <div class="profile-contenedor relative bg-[#373737] h-[50vh] w-[45vh] mt-[3.5vh] ml-[5vh] rounded-2xl shadow-2xl shadow-black dark:shadow-black ">
+                <div class="profile-picture ">
+                    <img src="./../../assets/mono_1-login.jpg" class="rounded-full h-[15vh] w-[15vh] ml-[15vh] mt-[5vh]">
+                </div>
+                <div class="user textosexo mt-[2vh] text-center absolute ml-[4vh] ">
+                    <h1> {{user}} </h1>
+                </div>
+                <div class="email textosexo mt-[25vh] text-center absolute ml-[4vh]">
+                    <h1> {{email}} </h1></div>
+                <div class="description-container textosexo rounded-2xl mt-[7vh] ml-[3vh] bg-[#434343] h-[18vh] w-[39vh] absolute break-normal">
+                    <div class="description ml-[1vh] break-normal h-[17vh] break-words">
+                        <h1> {{desc}} </h1>
+                    </div>
+                </div>
+            </div>
+            <div class="Join-nankuru absolute ml-[71vh] mt-[55.5vh]">
+                <button
+                    class="bg-[#49753E] h-[10vh] w-[45vh] rounded-2xl text-2xl textosexo shadow-xl shadow-black dark:shadow-black hover:bg-[#5D964F] text-[#ffffff]"
+                    (click)="submit()"
+                > Join nankuru world </button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
