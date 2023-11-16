@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { IUser } from '../types/user.type';
 
 @Component({
   selector: 'app-side-panel',
@@ -7,5 +8,8 @@ import { Component } from '@angular/core';
 })
 export class SidePanelComponent {
 
+  @Input()
+  user:IUser = {} as IUser;
+  
 }
 

@@ -14,8 +14,8 @@
 
 <body>
   <div class="navbar bg-[#474747]">
-    <div class="navbar-logo">
-      <img src="./../../assets/mono.png" class="object-contain w-40 ml-3">
+    <div class="navbar-logo w-[10%] h-[100%]">
+      <img src="./../../assets/mono.png" class="object-contain ml-[5%]">
     </div>
     <div class="navbar-start">
       <a class="btn btn-ghost normal-case text-4xl text-[#ffffff] textosexo text-center hover:bg-transparent">Nankuru-chat</a>
@@ -32,34 +32,43 @@
     </div>
     <div class="navbar-end">
       <a
-        class="btn text-3xl text-[#ffffff] textosexo bg-[#8e8e8e] h-12 w-52 rounded-full mr-10 normal-case shadow-3xl shadow-black/32 dark:shadow-black/40 border-none">Login</a>
+        class="btn text-3xl text-[#ffffff] textosexo bg-[#8e8e8e] h-12 w-52 rounded-full mr-10 normal-case shadow-3xl shadow-black/32 dark:shadow-black/40 border-none" (click)="goToLogin()">Login</a>
     </div>
   </div>
-  <div class="body bg-[#2c2c2c] h-[83vh] flex items-center">
-    <h1 class="ml-40 text-5xl textosexo w-[80vh] align-middle text-6xl text-[#ffffff]">The best place for practice your titi skills</h1>
-      <img src="./../../assets/mono_1-landing.jpg" class="object-contain w-[50vh] rounded-full ml-20">
+  <div class="body bg-[#2c2c2c] h-[50%] flex items-center">
+    <div class="mt-[10%] flex items-center">
+      <h1 class="ml-[10%] text-5xl textosexo w-[80%] align-middle text-6xl text-[#ffffff]">The best place for practice your titi skills</h1>
+      <img src="./../../assets/mono_1-landing.jpg" class="object-contain w-[50%] max-w-[70vh] rounded-full ml-[10%] mr-[10%]">
+    </div>
   </div>
-  <div class="body bg-[#2c2c2c] h-[83vh] flex items-center">
-    <img src="./../../assets/mono_2-landing.JPG" class="object-contain w-[70vh] rounded-full ml-20">
-    <h1 class="ml-40 text-5xl textosexo w-[80vh] align-middle text-6xl text-[#ffffff] fade text-right ">Try your luck and curse your enemies</h1>
+  <div class="body bg-[#2c2c2c] h-[80%] flex items-center">
+    <div class="mt-[10%] flex items-center">
+      <img src="./../../assets/mono_2-landing.JPG" class="object-contain ml-[10%] mr-[5%] w-[70%] rounded-full">
+      <h1 class="mr-[10%] text-5xl textosexo w-[80%] align-middle text-6xl text-[#ffffff] fade text-right ">Try your luck and curse your enemies</h1>
+    </div>
   </div>
-  <div class="body bg-[#2c2c2c] h-[83vh] flex items-center">
-    <h1 class="ml-40 text-5xl textosexo w-[80vh] align-middle text-6xl text-[#ffffff]">Be the most respected titi
-      <br>
-      <br>Or an outcast one
-    </h1>
-    <img src="./../../assets/mono_3-landing.jpg" class="object-contain w-[70vh] rounded-full ml-20">
+  <div class="body bg-[#2c2c2c] h-[80%] flex items-center">
+    <div class="mt-[10%] flex items-center">
+      <h1 class="ml-[10%] text-5xl textosexo w-[80%] align-middle text-6xl text-[#ffffff]">Be the most respected titi...
+        <br>
+        <br>Or an outcast one
+      </h1>
+      <img src="./../../assets/mono_3-landing.jpg" class="object-contain w-[70%] mr-[10%] rounded-full ml-20">
+    </div>
   </div>
-  <div class="body bg-[#2c2c2c] h-[83vh] flex items-center">
-    <img src="./../../assets/mono_4-landing.jpg" class="object-contain w-[80vh] rounded-full ml-20">
-    <h1 class="ml-20 text-5xl textosexo w-[80vh] align-middle text-6xl text-[#ffffff] fade text-right ">All is posible in...</h1>
+  <div class="body bg-[#2c2c2c] h-[80%] flex items-center">
+    <div class="mt-[10%] w-[100%] h-[100%] flex items-center">
+      <img src="./../../assets/mono_4-landing.jpg" class="object-contain ml-[10%] w-[200%] h-[200%] rounded-full ">
+      <h1 class="mr-[10%] ml-[20%] text-5xl textosexo w-[80%] align-middle text-6xl text-[#ffffff] fade text-right ">All is posible in...</h1>
+    </div>
   </div>
-  <div class="body bg-[#2c2c2c] h-[83vh] flex items-center">
-    <img src="./../../assets/mono.png" class="object-contain w-64 ml-[30vh] mb-[30vh]">
-    <h1 class=" text-5xl textosexo w-[150vh] mb-[25vh] text-8xl text-[#ffffff] fade relative">Nankuru-chat<a
-        class="btn text-3xl text-[#ffffff] textosexo bg-[#585858] h-16 w-80 rounded-3xl mr-10 normal-case shadow-xl shadow-black/32 dark:shadow-black/40 border-none absolute left-[1vh] top-[15vh] transparent-4">Enter titi village</a>
-    </h1>
+  <div class="body bg-[#2c2c2c] h-[80%] flex content-center justify-center">
+    <div class="mt-[10%] flex items-center content-center h-[70%] w-[70%] justify-center relative">
+      <img src="./../../assets/mono.png" class="object-contain w-[40%] mb-[20%] ml-[20%] mr-[5%]">
+      <h1 class=" text-5xl textosexo w-[100%] mb-[25%] text-[#ffffff] fade relative">Nankuru-chat
+        <a class="btn text-3xl text-[#ffffff] textosexo bg-[#585858] h-16 rounded-3xl mr-10 normal-case shadow-xl shadow-black/32 dark:shadow-black/40 border-none transparent-4" (click)="goToLogin()">Enter titi village</a>
+      </h1>
+    </div>
   </div>
 </body>
-
 </html>

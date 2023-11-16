@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { Input } from '@angular/core';
 import { RegisterService } from './register.service';
 import { LoginService } from '../login/login.service';
+import { Router } from '@angular/router';
+import { environment } from 'src/environments';
+import { IUser } from '../types/user.type';
 
 @Component({
   selector: 'app-register',
@@ -24,9 +27,12 @@ export class RegisterComponent {
   @Input()
   pfp:string = '';  //TODO
 
+  errMsg:string = '';
+
   constructor(
     private registerService:RegisterService,
-    private loginService:LoginService
+    private loginService:LoginService,
+    private router:Router
   ) { }
 
   submit()
@@ -44,11 +50,38 @@ export class RegisterComponent {
       this.password, 
       this.desc
     )
-    .subscribe(data => {
-      console.log('Success!');
-      // kaligrametro@gmail.com
-      // 123456
-    });
+    .subscribe(
+      data => {
+        console.log('Success!');
+        // kaligrametro@gmail.com
+        // 123456
+        this.loginService.login(this.email, this.password)
+        .subscribe(
+          token => {
+            localStorage.setItem(environment.localstorage_token_key, token.toString());
+
+            this.loginService.getUserByMail(this.email)
+            .subscribe(
+              user_db => {
+                const user:IUser = user_db as IUser;
+      
+                localStorage.setItem(environment.localStorage_user_id, user.id.toString());
+                this.router.navigate(['/chat']);
+              },
+              err => {
+                this.errMsg = JSON.parse(JSON.stringify(err)).error.message;
+                //console.log('Error: ' + this.errMsg);
+              }
+            );
+          },
+          err => {
+
+          }
+        );
+      },
+      err => {
+
+      });
   }
 
   // [DEPRECATE]
@@ -100,6 +133,11 @@ export class RegisterComponent {
     }
 
     return true;
+  }
+
+  goToLogin()
+  {
+    this.router.navigate(['/login']);
   }
 
 }

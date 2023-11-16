@@ -13,6 +13,15 @@ import { MessageComponent } from './chat/message/message.component';
 import { ServerComponent } from './chat/server/server.component';
 import { ChannelComponent } from './chat/server/channel/channel.component';
 import { SidePanelComponent } from './side-panel/side-panel.component';
+import { ProfileSidePanelComponent } from './side-panel/profile-side-panel/profile-side-panel.component';
+import { FriendsComponent } from './side-panel/friends/friends.component';
+import { EnemiesComponent } from './side-panel/enemies/enemies.component';
+import { FriendsAddedComponent } from './side-panel/friends/friends-added/friends-added.component';
+import { EnemiesAddedComponent } from './side-panel/enemies/enemies-added/enemies-added.component';
+import { UserListComponent } from './chat/server/user-list/user-list.component';
+import { ServerUsersComponent } from './chat/server/user-list/server-users/server-users.component';
+import { VcComponent } from './vc/vc.component';
+import { DmsChannelsComponent } from './dms-channels/dms-channels.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +33,16 @@ import { SidePanelComponent } from './side-panel/side-panel.component';
     MessageComponent,
     ServerComponent,
     ChannelComponent,
-    SidePanelComponent
+    SidePanelComponent,
+    ProfileSidePanelComponent,
+    FriendsComponent,
+    EnemiesComponent,
+    FriendsAddedComponent,
+    EnemiesAddedComponent,
+    UserListComponent,
+    ServerUsersComponent,
+    VcComponent,
+    DmsChannelsComponent
   ],
   imports: [
     BrowserModule,

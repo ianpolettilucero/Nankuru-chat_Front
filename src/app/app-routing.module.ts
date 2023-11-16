@@ -5,8 +5,15 @@ import { LandingComponent } from './landing/landing.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ServerComponent } from './chat/server/server.component';
+import { VcComponent } from './vc/vc.component';
+import { DmsChannelsComponent } from './dms-channels/dms-channels.component';
 
 const routes: Routes = [
+  {
+    path:'',
+    redirectTo: 'landing',
+    pathMatch: 'full'
+  },
   {
     path: 'chat',
     component: ChatComponent,
@@ -28,10 +35,15 @@ const routes: Routes = [
     title: 'Register'
   },
   {
-    path: 'test',
-    component: ServerComponent,
-    title: 'test'
+    path: 'vc',
+    component: VcComponent,
+    title: 'VC'
   },
+  {
+    path: 'dms',
+    component: DmsChannelsComponent,
+    title: 'DMs'
+  }
 ];
 
 @NgModule({
