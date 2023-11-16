@@ -4,4 +4,5 @@ export interface IMessage
   content_type:string;
   username: string;
   pfp: string;
+  id: number;
 }

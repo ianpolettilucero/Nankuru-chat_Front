@@ -13,8 +13,8 @@
         </p>
       </div>
       <div class="negros h-[8%] flex">
-        <div class="btn add-to-server bg-[#575757] hover:bg-[#666666] h-[100%] items-center flex justify-center textosexo normal-case"><</div>
-        <input type="text" class="useradd-name bg-[#575757] rounded-full w-[90%] ring-0 border-none hover:ring-0 hover:border-none focus:ring-0">
+        <div class="btn add-to-server bg-[#575757] hover:bg-[#666666] h-[100%] items-center flex justify-center textosexo normal-case" (click)="submit()"><</div>
+        <input type="text" class="useradd-name bg-[#575757] rounded-full w-[90%] ring-0 border-none hover:ring-0 hover:border-none focus:ring-0" placeholder="Input user id" [(ngModel)]="userId">
       </div>
     </ul>
   </div>

@@ -6,8 +6,13 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./server-users.component.css']
 })
 export class ServerUsersComponent {
+  
   @Input()
   name!: string;
+  
   @Input()
   pfp!: string;
+
+  @Input()
+  id!: number;
 }
