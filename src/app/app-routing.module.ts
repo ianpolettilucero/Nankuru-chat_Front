@@ -6,7 +6,6 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ServerComponent } from './chat/server/server.component';
 import { VcComponent } from './vc/vc.component';
-import { DmsChannelsComponent } from './dms-channels/dms-channels.component';
 
 const routes: Routes = [
   {
@@ -38,11 +37,6 @@ const routes: Routes = [
     path: 'vc',
     component: VcComponent,
     title: 'VC'
-  },
-  {
-    path: 'dms',
-    component: DmsChannelsComponent,
-    title: 'DMs'
   }
 ];
 

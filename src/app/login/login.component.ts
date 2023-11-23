@@ -10,6 +10,7 @@ import { IUser } from '../types/user.type';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
+  
   @Input()
   email:string = '';
 

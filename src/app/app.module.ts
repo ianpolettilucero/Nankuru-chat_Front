@@ -20,8 +20,6 @@ import { FriendsAddedComponent } from './side-panel/friends/friends-added/friend
 import { EnemiesAddedComponent } from './side-panel/enemies/enemies-added/enemies-added.component';
 import { UserListComponent } from './chat/server/user-list/user-list.component';
 import { ServerUsersComponent } from './chat/server/user-list/server-users/server-users.component';
-import { VcComponent } from './vc/vc.component';
-import { DmsChannelsComponent } from './dms-channels/dms-channels.component';
 
 @NgModule({
   declarations: [
@@ -40,9 +38,7 @@ import { DmsChannelsComponent } from './dms-channels/dms-channels.component';
     FriendsAddedComponent,
     EnemiesAddedComponent,
     UserListComponent,
-    ServerUsersComponent,
-    VcComponent,
-    DmsChannelsComponent
+    ServerUsersComponent
   ],
   imports: [
     BrowserModule,

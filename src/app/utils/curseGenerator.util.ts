@@ -1,4 +1,23 @@
 const curses:string[] = [ 
+    'boliviano',
+    "peruano",
+    "chileno",
+    "cordobes",
+    "tucumano",
+    "riojano",
+    "cabinero",
+    "causa",
+    "brazuca",
+    "serrano",
+    "comegatos",
+    "rosarino",
+    "porteño",
+    "hijo de ",
+    "forro",
+    "puta",
+    "negro",
+    "negros",
+    'ceviche',
     "abombado",
     "aborto",
     "abriboca",
@@ -13,7 +32,6 @@ const curses:string[] = [
     "analfabestia",
     "apichonado",
     "argolluda",
-    "arrodillado",
     "atorrante",
     "avivado",
     "baboso",
@@ -82,7 +100,6 @@ const curses:string[] = [
     "cipayo",
     "ciruja",
     "cobani",
-    "cogotudao",
     "coimero",
     "colifa",
     "colifato",
@@ -134,11 +151,11 @@ function random(min:number, max:number):number
 
 export function getCurse() 
 {
-    let out!:string;
+    let out:string = '';
 
     for (let i = 0; i < random(1, 5); i++)
     {
-        out += curses[random(0, curses.length - 1)] + " ";
+        out += curses[random(1, curses.length - 1)] + ' ';
     }
     return out;
 }

@@ -1,6 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments';
+import { Observable } from 'rxjs';
+import { IServer } from '../types/server.type';
+import { IChannel } from '../types/channel.type';
 
 @Injectable({
   providedIn: 'root'
@@ -72,4 +75,59 @@ export class ChatService {
     )
   }
 
+  addServer(server:IServer)
+  {
+    return this.http.post(
+      `${environment.api_url}/server`,
+      {
+        name: server.name,
+        description: '',
+        picture: server.picture,
+      },
+      {
+        headers: { 
+          'Authorization': this.getToken(),
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+  }
+
+  setUserAsAdmin()
+  {
+    console.log('TODO-BACK');
+    return new Observable();
+  }
+
+  addUserToServer(id_server:number, id_user:number)
+  {
+    return this.http.post(
+      `${environment.api_url}/server/${id_server}/users/${id_user}`,
+      {},
+      {
+        headers: {
+          'Authorization': this.getToken(),
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+  }
+
+  addChannel(id_server:number, channel:IChannel)
+  {
+    return this.http.post(
+      `${environment.api_url}/server/${id_server}/channels`,
+      {
+        name: channel.name,
+      },
+      {
+        headers: {
+          'Authorization': this.getToken(),
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+  }
+
+  
 }

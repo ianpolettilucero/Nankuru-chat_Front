@@ -8,16 +8,20 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./message.component.css']
 })
 export class MessageComponent {
+  
   @Input()
   content!: string;
+  
   @Input()
   content_type!:string;
+  
   @Input()
   username!: string;
+  
   @Input()
   pfp!: string;
-  //constructor(private sanitizer: DomSanitizer) { 
 
-  // }
+  @Input()
+  id!: number;
 }
 

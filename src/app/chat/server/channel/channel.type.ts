@@ -1,4 +1,4 @@
-export interface IChannel
+interface IChannel
 {
     id:number;
     name:string; 
