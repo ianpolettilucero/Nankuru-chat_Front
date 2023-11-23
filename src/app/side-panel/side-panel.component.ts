@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { IUser } from '../login/login.component';
-
+import { IUser } from '../types/user.type';
 
 @Component({
   selector: 'app-side-panel',
