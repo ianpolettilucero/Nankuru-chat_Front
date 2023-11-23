@@ -5,6 +5,7 @@ import { ChatComponent } from '../../chat.component';
 import { first, firstValueFrom } from 'rxjs';
 import { IServer } from 'src/app/types/server.type';
 
+
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
