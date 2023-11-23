@@ -3,11 +3,12 @@ import { ChatService } from './chat.service';
 import { environment } from 'src/environments';
 import { firstValueFrom } from 'rxjs';
 import { IMessage } from './message/message.type';
-import { IServer } from './server/server.type';
+import { IServer } from '../types/server.type';
 import { WsService } from './websocket/ws.service';
 import { Router } from '@angular/router';
 import { IUser, defaultIUser } from '../types/user.type';
 import { isUrl } from '../utils/isUrl.utils';
+import { getCurse } from '../utils/curseGenerator.util';
 
 @Component({
   selector: 'app-chat',
@@ -30,8 +31,10 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   serverName !:string;;
   channelName!:string;
 
-  private cur_channel_id!: number;
-  private cur_server_id!:  number;
+  errMsg: string = '';
+
+  cur_channel_id!: number;
+  cur_server_id!:  number;
 
   constructor(
     private chatService: ChatService,
@@ -85,6 +88,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     .subscribe(() => {
 
       const message:IMessage = {
+        id:           parseInt(userId),
         content:      this.user_input,
         content_type: this.assumeContentType(this.user_input),
         username:     this.user.username,
@@ -230,6 +234,53 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     this.user_input = '';
   }
 
+  newServerName:string = '';
 
+  addServer()
+  {
+
+    if (this.newServerName === undefined) this.errMsg='Nombre de servidor demasiado corto';
+    if (this.newServerName.length <= 0)   this.errMsg='Nombre de servidor demasiado corto';
+    if (this.newServerName.length >  20)  this.errMsg='Nombre de servidor demasiado largo';
+
+    if (this.errMsg != '') return;
+    this.errMsg = '';
+
+    const server:IServer = {
+      id:          0,
+      name:        this.newServerName,
+      description: 'not implemented yet',
+      picture:     'unspecified',
+      channels:    [],
+      users:       []
+    }
+
+    this.chatService.addServer(server)
+    .subscribe(res => 
+    {
+      // @ts-ignore
+      const serverId = res.insertId;
+
+      // add user to server
+      this.chatService.addUserToServer(serverId, this.user.id)
+      .subscribe(() => {
+
+        // clear input
+        this.newServerName = '';
+        
+        // update server list
+        firstValueFrom(this.chatService.getServersByUser(this.user.id))
+        .then(servers => this.servers = servers as IServer[])
+        .catch(err =>    this.errMsg = err.toString());
+      });
+    });
+    
+  }
+
+  sendCurses()
+  {
+    this.user_input = getCurse()
+    this.addMessage();
+  }
 
 }

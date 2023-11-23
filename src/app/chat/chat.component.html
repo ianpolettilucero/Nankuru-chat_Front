@@ -41,8 +41,15 @@
     <div class="server-container h-[78vh] mt-[10vh] flex flex-col w-[47.5vh] overflow-y-scroll overflow-y-hide">
       <div class="newserver bg-[#303030] h-[7%] flex items-center">
         <div class="textosexo flex">
-          <input type="text" placeholder="name your server here" class="w-[100%] h-[4vh] bg-[#303030] disabled border-none focus:border-none focus:ring-0">
-          <a href=""><img src="./../../../assets/anadir2.png" class="w-[5vh] h-[4vh] ring-0 border-none focus:ring-0 focus:border-none"></a>
+          <input 
+            type="text" 
+            placeholder="name your server here" 
+            class="w-[100%] h-[4vh] bg-[#303030] disabled border-none focus:border-none focus:ring-0"
+            [(ngModel)]="newServerName"
+          >
+          <a class="btn" (click)="addServer()">
+            <img src="./../../../assets/anadir2.png" class="w-[5vh] h-[4vh] ring-0 border-none focus:ring-0 focus:border-none">
+          </a>
         </div>
       </div>
       <div class="server-style flex flex-col">
@@ -62,6 +69,7 @@
         <div  class="left-0 overflow-y ">
           <p *ngFor="let message of messages">
             <app-message
+              [id]="message.id"
               [content]="message.content"
               [content_type]="message.content_type"
               [username]="message.username"
@@ -84,7 +92,7 @@
         </div>
         <div class="madness btn bg-[#575757] h-[9vh] w-[9vh]  ml-[1%] mr-[2%]  border-none ring-0 rounded-full items-center hover:bg-[#3A3A3A] ">
 
-          <img src="./../../assets/mad.png" class="w-[6vh] h-[6vh] ml-[0.1vh] z-[0] absolute">
+          <img src="./../../assets/mad.png" class="w-[6vh] h-[6vh] ml-[0.1vh] z-[0] absolute" (click)="sendCurses()">
         </div>
       </div>
     </div>

@@ -5,3 +5,4 @@ export interface IMessage
     content:string;
     content_type:string;
 }
+
