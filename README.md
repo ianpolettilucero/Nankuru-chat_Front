@@ -18,15 +18,15 @@ Poletti Ian
 ~ - En proceso
 X - NYI
 ```
-- [✔] Redirigir las rutas que no corresponden cuando estás o no logueado
-- [✔] Faltan redirecciones
-- [✔] Avisos de operaciones exitosas en login register
-- [X] Notificaciones
-- [~] Dockerizar 
-    - [~] Front
-    - [~] Back
-- [✔] Automatizar build y upload e imagens docker con github actions y el upload va al github registry
-- [✔] Falta abm de servidores y canales
-- [✔] Autoscroll al recibir mensaje
+- [X] Redirigir las rutas que no corresponden cuando estás o no logueado
+- [X] Faltan redirecciones
+- [X] Avisos de operaciones exitosas en login register
+- [ ] Notificaciones
+- [ ] Dockerizar 
+    - [ ] Front
+    - [ ] Back
+- [X] Automatizar build y upload e imagens docker con github actions y el upload va al github registry
+- [X] Falta abm de servidores y canales
+- [X] Autoscroll al recibir mensaje
 
 
