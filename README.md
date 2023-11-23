@@ -22,9 +22,9 @@ X - NYI
 - [X] Faltan redirecciones
 - [X] Avisos de operaciones exitosas en login register
 - [ ] Notificaciones
-- [~] Dockerizar 
-    - [~] Front
-    - [~] Back
+- [ ] Dockerizar 
+    - [ ] Front
+    - [ ] Back
 - [X] Automatizar build y upload e imagens docker con github actions y el upload va al github registry
 - [X] Falta abm de servidores y canales
 - [X] Autoscroll al recibir mensaje
