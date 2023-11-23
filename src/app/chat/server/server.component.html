@@ -2,23 +2,32 @@
     <details class="dropdown flex flex-col">
         <summary class="btn bg-[#404040] h-[10vh] w-[42vh] rounded-none items-center hover:bg-[#2B2B2B] border-none ">
             <div class="h-[6.5vh] w-[6.5vh]">
-                <img class="rounded-full" src="data:image/jpeg;base64, {{pfp}}">
+                <!-- <img class="rounded-full" src="data:image/jpeg;base64, {{pfp}}"> -->
             </div>
-            <div class="textosexo normal-case flex flex-col">
-                <p># {{serverName}} </p>
+
+            <div class="textosexo normal-case flex flex-col space-x-1" *ngIf="hasNewMessages; else elseBlock">
+                <p># {{serverName}}</p>
+                <p class="text-[#ff0000]"> @ </p>
             </div>
-            <div>
-            </div>
+            <ng-template #elseBlock>
+                <div class="textosexo normal-case flex flex-col">
+                    <p># {{serverName}} </p>
+                </div>
+            </ng-template>
+
         </summary>
         <ul class="p-2 shadow menu dropdown-content w-52 bg-[#404040] ml-[10vh] flex flex-col !static">
             <p *ngFor="let channel of channels">
-                <app-channel [channel]="channel"></app-channel>
+                <app-channel 
+                    [channel]="channel"
+                    [hasNewMessages]="channel.hasNewMessages"
+                ></app-channel>
             </p>
             <div class="channel bg-[#404040] flex items-center rounded-none border-none ring-0 normal-case">
-                <div class="textosexo flex">
-                    <input type="text" class="w-[100%] h-[4vh] bg-[#303030] disabled border-none focus:border-none focus:ring-0" [(ngModel)]="newChannelName">
-                    <a class="btn" (click)="addChannel()">
-                        <img src="./../../../assets/add_channel.png" class="w-[5vh] h-[4vh] ring-0 border-none focus:ring-0 focus:border-none">
+                <div class="textosexo flex h-[32.8px] items-center overflow-y-hidden">
+                    <input type ="text" class="w-[100%] h-[4vh] bg-[#303030] disabled border-none focus:border-none focus:ring-0" [(ngModel)]="newChannelName">
+                    <a class="btn h-[32.8px] ring-0 border-none focus:ring-0 focus:border-none p-0" (click)="addChannel()">
+                        <img src="./../../../assets/anadir2.png" class="w-[5vh] h-[5vh] ring-0 border-none focus:ring-0 focus:border-none">
                     </a>
                 </div>
             </div>

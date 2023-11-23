@@ -5,6 +5,7 @@ import { LandingComponent } from './landing/landing.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ServerComponent } from './chat/server/server.component';
+import { VcComponent } from './vc/vc.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,12 @@ const routes: Routes = [
     path: 'register',
     component: RegisterComponent,
     title: 'Register'
+  },
+  {
+    path: 'vc',
+    component: VcComponent,
+    title: 'VC'
+
   }
 ];
 

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ServerUsersComponent } from './server-users.component';
+import { VcComponent } from './vc.component';
 
-describe('ServerUsersComponent', () => {
-  let component: ServerUsersComponent;
-  let fixture: ComponentFixture<ServerUsersComponent>;
+describe('VcComponent', () => {
+  let component: VcComponent;
+  let fixture: ComponentFixture<VcComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ServerUsersComponent ]
+      declarations: [ VcComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ServerUsersComponent);
+    fixture = TestBed.createComponent(VcComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -21,4 +21,3 @@ describe('ServerUsersComponent', () => {
     expect(component).toBeTruthy();
   });
 });
-
