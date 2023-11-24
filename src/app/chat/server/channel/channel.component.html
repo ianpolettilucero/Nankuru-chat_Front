@@ -1,0 +1,28 @@
+<div
+    class="channel btn bg-[#404040] flex items-center rounded-none border-none ring-0 hover:bg-[#2B2B2B] normal-case flex flex-col"
+    (click)="changeChannel()"
+>
+    <!-- 
+    <div class="textosexo">
+        <p> → {{channel.name}} {{hasNewMessages}} </p>
+    </div>
+    -->
+
+    <div class="textosexo flex space-x-1" *ngIf="hasNewMessages; else elseBlock">
+        <p>→ {{channel.name}} </p>
+        <p class="text-[#ff0000]"> @ </p>
+    </div>  
+    <ng-template #elseBlock>
+        <div class="textosexo normal-case flex flex-col">
+            <p>→ {{channel.name}} </p>
+        </div>
+    </ng-template>
+</div>
+<!--
+<div class="channel btn bg-[#404040] flex items-center rounded-none border-none ring-0 hover:bg-[#2B2B2B] normal-case">
+    <div class="textosexo flex">
+        <img class="h-[2.5vh] w-[2.5vh] mr-[1vh]" src="./../../../../assets/voice-channel.png">
+        <p> {{voiceChannelName}} </p>
+    </div>
+</div>
+-->
