@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { IUser, defaultIUser } from '../types/user.type';
 import { isUrl } from '../utils/isUrl.utils';
 import { getCurse } from '../utils/curseGenerator.util';
+import { IChannel } from '../types/channel.type';
 
 @Component({
   selector: 'app-chat',
@@ -33,8 +34,8 @@ export class ChatComponent implements OnInit, AfterViewChecked {
 
   errMsg: string = '';
 
-  cur_channel_id!: number;
-  cur_server_id!:  number;
+  cur_channel_id: number = 0;
+  cur_server_id:  number = 0;
 
   constructor(
     private chatService: ChatService,
@@ -123,14 +124,51 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     this.cur_channel_id = id_channel;
     this.messages       = [];
 
+    // update channel name
     this.channelName = this.servers
     .filter(server  => { return server.id  == this.cur_server_id })[0].channels
     .filter(channel => { return channel.id == id_channel         })[0].name;
+    
+    const serverHasNewMessages = (server:IServer):boolean => 
+    {
+      let out = false;
+      server.channels.forEach(channel => { if (channel.hasNewMessages) out = true })
+      return out;
+    }
+    
+    // delete notifications
+    let temp: IServer[] = [];
+    this.servers.forEach(server => 
+    {
+      let temp_server!:IServer;
+      temp_server = server;
 
+      if (!serverHasNewMessages(server))
+      {
+        temp_server.hasNewMessages = false;
+      }
+      else 
+      {
+        let channels: IChannel[] = [];
+        server.channels.forEach(channel => 
+        {
+          let temp_channel!:IChannel;
+          temp_channel = channel;
+          if (channel.id == this.cur_channel_id) temp_channel.hasNewMessages = false;
+          channels.push(temp_channel);
+        })
+        if (!serverHasNewMessages(server)) temp_server.hasNewMessages = false;
+        temp_server.channels = channels;
+      }
+      temp.push(temp_server);
+    })
+    this.servers = temp;
+    
 
+    // load messages
     firstValueFrom(this.chatService.getMessages(this.cur_server_id, this.cur_channel_id))
-    .then(messages => {
-      
+    .then(messages => 
+    {  
       this.messages = (messages as IMessage[]).reverse();
       
       this.wsService.messages$
@@ -146,15 +184,42 @@ export class ChatComponent implements OnInit, AfterViewChecked {
           file:      File | undefined 
         };
 
-        console.log(wsMsg);
-        
-        // check user is in current server and channel
-        if (wsMsg.server != this.cur_server_id || wsMsg.channel != this.cur_channel_id) return;
+        //console.log('sendNotification')
 
         // to avoid socket problem of sending same message twice
-        if (this.lastSentDate == +wsMsg.timeStamp) return;
+        if (this.lastSentDate == +wsMsg.timeStamp) return; 
         
         this.lastSentDate = +wsMsg.timeStamp;
+
+          // check message was sent in current channel-server
+          if (wsMsg.server != this.cur_server_id || wsMsg.channel != this.cur_channel_id) 
+          {
+            let temp:IServer[] = [];
+  
+            this.servers.forEach(server => {
+              if (server.id == wsMsg.server) 
+              {
+               server.hasNewMessages = true;
+  
+               const fn = () => {
+                let temp_ch:IChannel[] = [];
+                server.channels.forEach(channel => 
+                {
+                  if (channel.id == wsMsg.channel) channel.hasNewMessages = true;
+                  temp_ch.push(channel);
+                });
+                return temp_ch;
+               }
+               server.channels = fn();
+              }
+              temp.push(server);
+            });
+  
+            this.servers = temp;
+            console.log(this.servers);
+  
+            return;
+          }
           
         const msg = JSON.parse(wsMsg.content) as IMessage;
         // no tengo idea de como hacer esto, hay q setear la ruta aca
@@ -171,7 +236,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     this.cur_server_id  = id_server;
     this.messages       = [];
 
-    this.serverName = this.servers.filter(server => { return server.id == id_server })[0].name;
+    this.serverName = this.servers.filter(server => { return server.id == id_server })[0].name || 'other';
   }
 
   @HostListener('window:keydown', ['$event'])
@@ -252,7 +317,8 @@ export class ChatComponent implements OnInit, AfterViewChecked {
       description: 'not implemented yet',
       picture:     'unspecified',
       channels:    [],
-      users:       []
+      users:       [],
+      hasNewMessages: false
     }
 
     this.chatService.addServer(server)

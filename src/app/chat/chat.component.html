@@ -44,7 +44,7 @@
         <div class="textosexo flex items-center justify-center">
           <input
             type="text"
-            placeholder="name your server here"
+            placeholder="Name your server here"
             class="w-[100%] h-[4vh] bg-[#303030] disabled border-none focus:border-none focus:ring-0"
             [(ngModel)]="newServerName"
           >
@@ -60,6 +60,7 @@
             [serverName]="server.name"
             [pfp]="server.picture"
             [channels]="server.channels"
+            [hasNewMessages]="server.hasNewMessages"
           ></app-server>
         </p>
       </div>

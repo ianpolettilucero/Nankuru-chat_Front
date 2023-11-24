@@ -10,5 +10,5 @@ export interface IServer
     picture:string;
     channels:IChannel[];
     users:IUser[];
-
+    hasNewMessages:boolean;
 }

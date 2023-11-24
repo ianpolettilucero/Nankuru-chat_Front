@@ -6,4 +6,5 @@ export interface IChannel
     name:string;
     description:string;
     messages:IMessage[];
+    hasNewMessages:boolean;
 }
