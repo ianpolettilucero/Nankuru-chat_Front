@@ -37,7 +37,6 @@ const routes: Routes = [
     path: 'vc',
     component: VcComponent,
     title: 'VC'
-
   }
 ];
 

@@ -14,8 +14,8 @@
 
 <body>
   <div class="sidepanel z-auto">
-    <app-side-panel 
-      [user]="user" 
+    <app-side-panel
+      [user]="user"
     ></app-side-panel>
   </div>
   <div class="fondo bg-[#2C2C2C] w-[100%] h-[100vh] flex">
@@ -39,18 +39,22 @@
       </div>
     </div>
     <div class="server-container h-[78vh] mt-[10vh] flex flex-col w-[47.5vh] overflow-y-scroll overflow-y-hide">
-      
-      <div class="newserver bg-[#303030] h-[7%] flex items-center">
-        <div class="textosexo flex items-center justify-center">
-          <input
-            type="text"
-            placeholder="Name your server here"
-            class="w-[100%] h-[4vh] bg-[#303030] disabled border-none focus:border-none focus:ring-0"
-            [(ngModel)]="newServerName"
-          >
-          <a class="btn" (click)="addServer()">
-            <img src="./../../../assets/anadir2.png" class="w-[5vh] h-[4vh] ring-0 border-none focus:ring-0 focus:border-none">
-          </a>
+      <div class="newserver bg-[#303030] h-[10%] flex">
+        <div class="newServerErrorContainer flex flex-col h-[15vh]">
+          <div class="textosexo flex justify-center items-center h-[5vh]">
+            <input
+              type="text"
+              placeholder="name your server here"
+              class="w-[100%] h-[4vh] bg-[#303030] disabled border-none focus:border-none focus:ring-0"
+              [(ngModel)]="newServerName"
+            >
+            <a class="btn rounded-none h-[1vh]" (click)="addServer()">
+              <img src="./../../../assets/anadir2.png" class="w-[5vh] h-[4vh] ring-0 border-none focus:ring-0 focus:border-none">
+            </a>
+          </div>
+          <div class="errorShow">
+            <p class="text-[#ff0000] text-center"> {{errMsg}} </p>
+          </div>
         </div>
       </div>
       <div class="server-style flex flex-col">

@@ -15,6 +15,4 @@ export class ServerUsersComponent {
 
   @Input()
   id!: number;
-
 }
-

@@ -14,7 +14,7 @@
 <body>
     <div class="fondo bg-[#2C2C2C] w-[100%] h-[100vh] flex items-center">
         <div
-            class="contenedor-login w-[58%] h-[68%] ml-[20%] bg-[#373737] rounded-2xl shadow-4xl shadow-black/32 dark:shadow-black/40 border-none flex">
+            class="contenedor-login w-[58%] h-[75%] ml-[20%] bg-[#373737] rounded-2xl shadow-4xl shadow-black/32 dark:shadow-black/40 border-none flex">
             <div>
                 <div class="logo flex items-center mt-[1vh] ">
                     <img src="./../../assets/mono.png" class="object-contain w-28 ml-7 mt-[1vh]">
@@ -42,8 +42,15 @@
                     <div class="nbirgger ">
                         <textarea maxlength="140" name="" placeholder="Enter your Titi description" cols="" rows="" class="text-xl maxlength=15 rounded-xl mt-[3vh] border-none focus:outline-none focus:ring-0 focus:text-[#ffffff] focus:border-transparent focus:bg-[#525252] w-[60vh] h-[20vh] bg-[#575757] placeholder-gray-400 ml-[5vh] shadow-2xl shadow-black dark:shadow-black"
                         [(ngModel)]="desc"
-                    ></textarea>
+                        ></textarea>
                     </div>
+                </div>
+                <div class="errorShow absolute">
+                    <p class="text-[#ff0000] text-center mt-[2.5vh] ml-[40px]"> {{errMsg}} </p>
+                </div>
+                <div class="createAccount mt-[10%] ml-[8%] flex space-x-1">
+                    <div class="text-[#ffffff]">¿Don't have an account?</div> <!--  <a class="btn bg-transparent hover:bg-transparent ring-0 hover:ring-0">Register!</a> -->
+                    <a (click)="goToLogin()" class="hover:cursor-pointer">Login!</a>
                 </div>
             </div>
             <div class="profile-contenedor relative bg-[#373737] h-[50vh] w-[45vh] mt-[3.5vh] ml-[5vh] rounded-2xl shadow-2xl shadow-black dark:shadow-black ">
@@ -62,7 +69,7 @@
                 </div>
             </div>
             <div class="Join-nankuru absolute ml-[71vh] mt-[55.5vh]">
-                <button 
+                <button
                     class="bg-[#49753E] h-[10vh] w-[45vh] rounded-2xl text-2xl textosexo shadow-xl shadow-black dark:shadow-black hover:bg-[#5D964F] text-[#ffffff]"
                     (click)="submit()"
                 > Join nankuru world </button>

@@ -304,9 +304,9 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   addServer()
   {
 
-    if (this.newServerName === undefined) this.errMsg='Nombre de servidor demasiado corto';
-    if (this.newServerName.length <= 0)   this.errMsg='Nombre de servidor demasiado corto';
-    if (this.newServerName.length >  20)  this.errMsg='Nombre de servidor demasiado largo';
+    if (this.newServerName === undefined) this.errMsg='Nombre demasiado corto';
+    if (this.newServerName.length <= 0)   this.errMsg='Nombre demasiado corto';
+    if (this.newServerName.length >  20)  this.errMsg='Nombre demasiado largo';
 
     if (this.errMsg != '') return;
     this.errMsg = '';
