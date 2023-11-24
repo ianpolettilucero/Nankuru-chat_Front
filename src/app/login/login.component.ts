@@ -48,10 +48,9 @@ export class LoginComponent {
             const user:IUser = user_db as IUser;
 
             localStorage.setItem(
-              environment.localStorage_user_id, 
+              environment.localStorage_user_id,
               user.id.toString()
             );
-            
             this.router.navigate(['/chat']);
           },
           err => this.errMsg = JSON.parse(JSON.stringify(err)).error.message

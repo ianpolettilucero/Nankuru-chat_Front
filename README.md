@@ -16,7 +16,8 @@ Poletti Ian
 - [X] Redirigir las rutas que no corresponden cuando estás o no logueado
 - [X] Faltan redirecciones
 - [X] Avisos de operaciones exitosas en login register
-- [ ] Notificaciones
+- [X] Avisos de error del usuario 
+- [X] Notificaciones
 - [ ] Dockerizar 
     - [ ] Front
     - [ ] Back

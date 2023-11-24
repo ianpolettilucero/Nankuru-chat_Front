@@ -40,6 +40,7 @@ export class RegisterComponent {
     //this.service.testRequest().subscribe(data => console.log('Response:', data)); return;
 
     if (!this.validateAllData()) return;
+    this.errMsg = '';
 
     this.toBase64(this.pfp);
 
@@ -90,6 +91,11 @@ export class RegisterComponent {
     console.log('toBase64(): -> TODO');
   }
   
+  goToLogin()
+  {
+    this.router.navigate(['/login']);
+  }
+
   // validations
 
   isMailValid(mail:string):boolean
@@ -108,27 +114,27 @@ export class RegisterComponent {
   {
     
     if (this.user == '') {
-      alert('Username can\'t be empty');
+      this.errMsg = 'Username can\'t be empty';
       return false;
     }
 
     if (this.email == '') {
-      alert('Email can\'t be empty');
+      this.errMsg = 'Email can\'t be empty'
       return false;
     }
 
     if (this.password == '') {
-      alert('Password can\'t be empty');
+      this.errMsg = 'Password can\'t be empty'
       return false;
     }
 
     if (!this.isMailValid(this.email)) {
-      alert('Email is not valid');
+      this.errMsg = 'Email is not valid'
       return false;
     }
 
     if (!this.isPasswordValid(this.password)) {
-      alert('Password is not valid');
+      this.errMsg = 'Password is not valid'
       return false;
     }
 
