@@ -14,6 +14,9 @@ export class ChannelComponent {
   @Input()
   channel!:IChannel;
 
+  @Input()
+  hasNewMessages:boolean = false;
+
   constructor(private chat:ChatComponent) {}
 
   changeChannel()

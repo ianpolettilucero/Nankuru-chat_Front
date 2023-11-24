@@ -1,5 +1,10 @@
 const curses:string[] = [ 
-    'boliviano',
+    "boliviano",
+    "planero",
+    "zurdo",
+    "facho",
+    "zurdito",
+    "pelotudito",
     "peruano",
     "chileno",
     "cordobes",

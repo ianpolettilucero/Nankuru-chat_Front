@@ -29,6 +29,11 @@ export class ServerComponent {
 
   errMsg: string = '';
 
+  @Input()
+  hasNewMessages: boolean = false;
+
+  newMessageIndicator: string = this.hasNewMessages ? '@' : '' ;
+
   constructor(
     private chat:ChatComponent,
     private chatService: ChatService
@@ -51,7 +56,8 @@ export class ServerComponent {
       id: 0,
       name: this.newChannelName,
       description: '',
-      messages: []
+      messages: [],
+      hasNewMessages: false
     }
 
     this.chatService.addChannel(this.id, channel)
