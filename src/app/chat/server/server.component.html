@@ -4,7 +4,6 @@
             <div class="h-[6.5vh] w-[6.5vh]">
                 <!-- <img class="rounded-full" src="data:image/jpeg;base64, {{pfp}}"> -->
             </div>
-
             <div class="textosexo normal-case flex flex-col space-x-1" *ngIf="hasNewMessages; else elseBlock">
                 <p># {{serverName}}</p>
                 <p class="text-[#ff0000]"> @ </p>
@@ -14,7 +13,6 @@
                     <p># {{serverName}} </p>
                 </div>
             </ng-template>
-
         </summary>
         <ul class="p-2 shadow menu dropdown-content w-52 bg-[#404040] ml-[10vh] flex flex-col !static">
             <p *ngFor="let channel of channels">
