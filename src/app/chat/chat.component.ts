@@ -34,8 +34,8 @@ export class ChatComponent implements OnInit, AfterViewChecked {
 
   errMsg: string = '';
 
-  cur_channel_id!: number;
-  cur_server_id!:  number;
+  cur_channel_id: number = 0;
+  cur_server_id:  number = 0;
 
   constructor(
     private chatService: ChatService,
@@ -128,16 +128,43 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     this.channelName = this.servers
     .filter(server  => { return server.id  == this.cur_server_id })[0].channels
     .filter(channel => { return channel.id == id_channel         })[0].name;
-    /*
-    // set notifications on server
-    this.servers
-    .filter(server => { return server.id == this.cur_server_id })[0].hasNewMessages = false;
+    
+    const serverHasNewMessages = (server:IServer):boolean => 
+    {
+      let out = false;
+      server.channels.forEach(channel => { if (channel.hasNewMessages) out = true })
+      return out;
+    }
+    
+    // delete notifications
+    let temp: IServer[] = [];
+    this.servers.forEach(server => 
+    {
+      let temp_server!:IServer;
+      temp_server = server;
 
-    // set notifications on channel
-    this.servers
-    .filter(server  => { return server.id  == this.cur_server_id  })[0].channels
-    .filter(channel => { return channel.id == this.cur_channel_id })[0].hasNewMessages = false;
-    */
+      if (!serverHasNewMessages(server))
+      {
+        temp_server.hasNewMessages = false;
+      }
+      else 
+      {
+        let channels: IChannel[] = [];
+        server.channels.forEach(channel => 
+        {
+          let temp_channel!:IChannel;
+          temp_channel = channel;
+          if (channel.id == this.cur_channel_id) temp_channel.hasNewMessages = false;
+          channels.push(temp_channel);
+        })
+        if (!serverHasNewMessages(server)) temp_server.hasNewMessages = false;
+        temp_server.channels = channels;
+      }
+      temp.push(temp_server);
+    })
+    this.servers = temp;
+    
+
     // load messages
     firstValueFrom(this.chatService.getMessages(this.cur_server_id, this.cur_channel_id))
     .then(messages => 
@@ -157,14 +184,14 @@ export class ChatComponent implements OnInit, AfterViewChecked {
           file:      File | undefined 
         };
 
-        console.log('sendNotification')
+        //console.log('sendNotification')
 
         // to avoid socket problem of sending same message twice
         if (this.lastSentDate == +wsMsg.timeStamp) return; 
         
         this.lastSentDate = +wsMsg.timeStamp;
 
-          // check user is in current server and channel
+          // check message was sent in current channel-server
           if (wsMsg.server != this.cur_server_id || wsMsg.channel != this.cur_channel_id) 
           {
             let temp:IServer[] = [];
