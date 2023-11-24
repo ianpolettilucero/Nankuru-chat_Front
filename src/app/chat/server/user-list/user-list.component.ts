@@ -19,6 +19,8 @@ export class UserListComponent {
   @Input()
   userId!:string;
 
+  errMsg:string = '';
+
   constructor(
     private chatService:ChatService,
     private chat:ChatComponent
@@ -47,10 +49,10 @@ export class UserListComponent {
           .filter(server => { return server.id == this.chat.cur_server_id})[0]
           .users.push(user as IUser);
         })
-        .catch(err => {});
+        .catch(err => this.errMsg = JSON.parse(JSON.stringify(err)).error.message);
       });
     })
-    .catch((err) => {});
+    .catch((err) => this.errMsg = JSON.parse(JSON.stringify(err)).error.message);
 
    
   }
