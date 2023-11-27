@@ -1,6 +1,6 @@
 FROM nginx:stable
 
-COPY ./nginx.conf /etc/nginx/nginx.conf
-COPY ./dist/nankuru-front/ /usr/share/nginx/html
+COPY ./nginx.conf /etc/nginx/sites-enabled/default
+COPY ./dist/nankuru-front  /var/www/nkc-front
 
 EXPOSE 80
