@@ -21,8 +21,10 @@ jobs:
         username: ${{ secrets.ACTION_USER }}
         password: ${{ secrets.ACTION_TOKEN }}
 
-    - name: Pull SSL certs from Github secrets    
-      run: echo "${{ secrets.PROD_ENV }}" | base64 --decode > ./src/environments/environment.ts
+    - name: Pull prod_env from secrets    
+      run: |
+        mkdir -p ./src/environments/
+        echo "${{ secrets.PROD_ENV }}" | base64 --decode > ./src/environments/environment.ts
 
     - name: Compile project
       run: npm install; npm run build
