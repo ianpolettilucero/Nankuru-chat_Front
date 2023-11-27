@@ -3,7 +3,7 @@ import { Input } from '@angular/core';
 import { RegisterService } from './register.service';
 import { LoginService } from '../login/login.service';
 import { Router } from '@angular/router';
-import { environment } from 'src/environments';
+import { environment } from 'src/environments/environment';
 import { IUser } from '../types/user.type';
 
 @Component({
@@ -41,6 +41,8 @@ export class RegisterComponent {
 
     if (!this.validateAllData()) return;
     this.errMsg = '';
+
+    this.toBase64(this.pfp);
 
     this.registerService.register(
       this.user, 
@@ -83,6 +85,12 @@ export class RegisterComponent {
       });
   }
 
+  // [DEPRECATE]
+  toBase64(image:string) 
+  {
+    console.log('toBase64(): -> TODO');
+  }
+  
   goToLogin()
   {
     this.router.navigate(['/login']);

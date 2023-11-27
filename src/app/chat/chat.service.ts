@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments';
+import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { IServer } from '../types/server.type';
 import { IChannel } from '../types/channel.type';

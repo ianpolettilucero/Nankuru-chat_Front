@@ -1,6 +1,6 @@
 import { AfterViewChecked, Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { ChatService } from './chat.service';
-import { environment } from 'src/environments';
+import { environment } from 'src/environments/environment';
 import { firstValueFrom } from 'rxjs';
 import { IMessage } from './message/message.type';
 import { IServer } from '../types/server.type';
