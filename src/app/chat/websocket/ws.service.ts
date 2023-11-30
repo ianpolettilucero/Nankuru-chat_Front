@@ -1,6 +1,6 @@
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket'
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments';
+import { environment } from 'src/environments/environment';
 import { IMessage } from '../message/message.type';
 import { IUser } from 'src/app/types/user.type';
 

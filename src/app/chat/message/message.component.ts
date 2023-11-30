@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { IMessage } from './message.type';
 import { DomSanitizer } from '@angular/platform-browser';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-message',
@@ -23,5 +24,17 @@ export class MessageComponent {
 
   @Input()
   id!: number;
+
+  isFile()
+  {
+    return this.content_type === 'file';
+  }
+
+  getPath()
+  {
+    return `${environment.api_url}`
+  }
+
+  path = this.getPath();
 }
 

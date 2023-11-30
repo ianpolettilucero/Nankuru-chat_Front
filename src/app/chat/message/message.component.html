@@ -2,6 +2,13 @@
     <div class="max-h-[6.5vh] max-w-[6.5vh]"><img class="rounded-full" src="data:image/jpeg;base64, {{pfp}}"></div>
     <div class="flex flex-col">
         <div class="textosexo ml-[2vh] "><p> {{username}} #{{id}}</p></div>
-        <div class="textosexo ml-[2vh] text-[#ffffff] break-words "><p> {{content}} </p></div>
+
+        <div *ngIf="isFile(); else elseBlock">
+            <img src="{{path}}{{content}}" class="h-[50vh] w-[50vh]">
+        </div>
+
+        <ng-template #elseBlock>
+            <div class="textosexo ml-[2vh] text-[#ffffff] break-words "><p> {{content}} </p></div>
+        </ng-template>
     </div>
 </div>

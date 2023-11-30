@@ -1,6 +1,6 @@
 import { AfterViewChecked, Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { ChatService } from './chat.service';
-import { environment } from 'src/environments';
+import { environment } from 'src/environments/environment';
 import { firstValueFrom } from 'rxjs';
 import { IMessage } from './message/message.type';
 import { IServer } from '../types/server.type';
@@ -170,6 +170,8 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     .then(messages => 
     {  
       this.messages = (messages as IMessage[]).reverse();
+
+      console.log(this.messages);
       
       this.wsService.messages$
       .subscribe(raw_msg => 
@@ -229,6 +231,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
       });
     })
     .catch(err => {});
+
   }
 
   updateServer(id_server:number)
@@ -263,9 +266,8 @@ export class ChatComponent implements OnInit, AfterViewChecked {
 
   private assumeContentType(content:string):string
   {
-
-    if (isUrl(content)) return 'url';
-
+    if (content.includes(`/public/${this.user.id}`)) return 'file';
+    if (isUrl(content))           return 'url';
     return 'text';
   }
 
@@ -347,6 +349,37 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   {
     this.user_input = getCurse()
     this.addMessage();
+  }
+
+
+  uploadFile(event:any)
+  {
+    
+    let file = event.target.files[0];
+
+    const data = new FormData()
+        
+    data.append(file.name.split('.')[0], file)
+    data.append('userName', this.user.id.toString())
+
+    this.chatService.uploadFile(data)
+    .subscribe(res =>
+    {
+      this.user_input = `/public/${this.user.id}/${file.name}`
+
+      this.addMessage();
+    })
+   
+  } 
+
+  isFile(content:string):boolean
+  {
+    return (content == 'file');
+  }
+
+  getFileRoute(file:string):string
+  {    
+    return `${environment.api_url}/${file}`;
   }
 
 }

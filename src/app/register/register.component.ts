@@ -3,7 +3,7 @@ import { Input } from '@angular/core';
 import { RegisterService } from './register.service';
 import { LoginService } from '../login/login.service';
 import { Router } from '@angular/router';
-import { environment } from 'src/environments';
+import { environment } from 'src/environments/environment';
 import { IUser } from '../types/user.type';
 
 @Component({

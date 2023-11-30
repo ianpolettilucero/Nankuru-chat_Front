@@ -1,6 +1,6 @@
 import { Component, HostListener, Input } from '@angular/core';
 import { LoginService } from './login.service';
-import { environment } from 'src/environments';
+import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { IUser } from '../types/user.type';
 
