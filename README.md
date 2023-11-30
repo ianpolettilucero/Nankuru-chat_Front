@@ -18,9 +18,9 @@ Poletti Ian
 - [X] Avisos de operaciones exitosas en login register
 - [X] Avisos de error del usuario 
 - [X] Notificaciones
-- [ ] Dockerizar 
-    - [ ] Front
-    - [ ] Back
+- [X] Dockerizar 
+    - [X] Front
+    - [X] Back
 - [X] Automatizar build y upload e imagens docker con github actions y el upload va al github registry
 - [X] Falta abm de servidores y canales
 - [X] Autoscroll al recibir mensaje
